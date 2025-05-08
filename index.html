@@ -1253,7 +1253,7 @@
     }
 
      body.fantasy select {
-        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23483d8b%22%20d%3D%22M9.293%2012.95l.707.707L15.657%208l-1.414-1.414L10%2010.828%205.757%206.586%204.343%208z%22%2F%3E%3C%2Fsvg%3E'); /* Dark Slate Blue arrow */
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23483d8b%22%20d%3D%22M9.293%2012.95l.707.707L15.657%208l-1.414-1.414L10%2010.828%205.757%206.586%204.343%208z%22%2F%2F%3E%3C%2Fsvg%3E'); /* Dark Slate Blue arrow */
         background-repeat: no-repeat;
         background-position: right 15px center;
         background-size: 1em auto;
@@ -1506,10 +1506,11 @@
            margin-bottom: 20px; /* Adjusted space */
        }
       body.steampunk h1 {
-          font-size: 2em; /* Further reduced font size for Steampunk h1 on mobile */
+          font-size: 1.8em; /* Further reduced font size for Steampunk h1 on mobile */
+          margin-bottom: 10px; /* Reduced bottom margin for Steampunk h1 */
       }
-      body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.6em; } /* Smaller gears */
-      body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.6em; } /* Smaller gears */
+      body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.5em; } /* Smaller gears */
+      body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.5em; } /* Smaller gears */
 
       body.cyberpunk h1 {
           font-size: 2.2em; /* Significantly smaller font size for Cyberpunk h1 */
@@ -1521,6 +1522,9 @@
           animation: none;
       }
 
+      body.steampunk .container {
+          padding-top: 50px; /* Increased top padding for Steampunk container on mobile */
+      }
       body.steampunk .container::before { top: 8px; left: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
       body.steampunk .container::after { top: 8px; right: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
       body.steampunk .container > :first-child::before { bottom: 8px; left: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
