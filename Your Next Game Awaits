@@ -1,0 +1,2599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Playful Oracle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Roboto+Slab:wght@400;700&family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=MedievalSharp&family=Fondamento&family=Rajdhani:wght@400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles (apply to all themes) */
+    body {
+      line-height: 1.6;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px;
+      box-sizing: border-box;
+      transition: background-color 0.5s ease; /* Smooth transition for background */
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      padding: 50px;
+      border-radius: 12px;
+      box-sizing: border-box;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.5s ease, box-shadow 0.5s ease; /* Smooth transition for container */
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Style for the new subtitle */
+    .subtitle {
+        text-align: center;
+        margin-top: -20px; /* Pull it closer to the main title */
+        margin-bottom: 30px;
+        font-size: 1.2em; /* Make it smaller than the main title */
+        font-weight: 400;
+        opacity: 0.9;
+    }
+
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 25px;
+      border: none;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1.1em;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Ensure default select arrow is removed across themes */
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding-right: 35px; /* Make space for the custom arrow */
+    }
+
+
+    button {
+      display: inline-block;
+      padding: 14px 20px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+     button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    button:hover::before {
+        opacity: 1;
+    }
+
+    button:last-child {
+      margin-right: 0;
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .game-item, .history-item {
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Flex container for game name and date in history items */
+    .history-item .game-info {
+        display: flex;
+        flex-direction: column; /* Stack name and date */
+        flex-grow: 1;
+        margin-right: 20px;
+    }
+
+    .game-item span { /* Apply styling to game name within suggestions */
+      font-weight: 500;
+      font-size: 1.3em; /* Increased font size */
+    }
+
+    .history-item .game-name { /* Apply styling to game name within history */
+      font-weight: 500;
+      font-size: 1.15em; /* Slightly increased font size for history game name */
+    }
+
+
+     .history-item .play-date {
+        font-size: 1em; /* Slightly increased font size for history date */
+        margin-top: 5px; /* Add some space between name and date */
+        /* No margin-left needed with flex-direction: column */
+    }
+
+
+    .game-item .button-group,
+    .history-item .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .game-item .button-group,
+      .history-item .button-group {
+        margin-top: 0;
+      }
+    }
+
+    .history-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .all-games-box table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
+
+    .all-games-box th,
+    .all-games-box td {
+        padding: 15px;
+        text-align: left;
+    }
+
+    .all-games-box th {
+        font-family: 'Cinzel Decorative', cursive;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1em;
+        cursor: pointer; /* Add cursor pointer for sortable headers */
+    }
+
+    .all-games-box th .sort-indicator {
+        margin-left: 5px;
+        font-size: 0.8em;
+    }
+
+
+    .all-games-box tr:last-child td {
+        border-bottom: none;
+    }
+
+    .all-games-box tr.excluded td {
+        opacity: 1; /* Keep opacity for excluded rows */
+    }
+
+    /* Adjust column widths - Updated after removing BGG columns */
+    .all-games-box th:nth-child(1),
+    .all-games-box td:nth-child(1) {
+        width: 5%;
+        text-align: center;
+    }
+     .all-games-box th:nth-child(2),
+    .all-games-box td:nth-child(2) {
+        width: 30%; /* Adjusted width for game name */
+    }
+    .all-games-box th:nth-child(3),
+    .all-games-box td:nth-child(3) {
+        width: 10%; /* Adjusted width for importance */
+        text-align: center;
+    }
+    .all-games-box th:nth-child(4),
+    .all-games-box td:nth-child(4) {
+        width: 10%; /* Adjusted width for duration */
+        text-align: center;
+    }
+     /* Adjusted column widths for My Score and Edit/Remove */
+     .all-games-box th:nth-child(5),
+    .all-games-box td:nth-child(5) {
+        width: 10%; /* My Score is now 5th column */
+        text-align: center;
+    }
+      .all-games-box th:nth-child(6),
+    .all-games-box td:nth-child(6) {
+        width: 35%; /* Increased width for edit and remove buttons (now 6th column) */
+        text-align: center;
+    }
+
+
+     /* Styling for inline edit inputs/selects */
+    .all-games-box td input[type="text"],
+    .all-games-box td input[type="number"],
+    .all-games-box td select {
+        width: calc(100% - 10px); /* Adjust width to fit in cell */
+        padding: 8px;
+        margin: 0;
+        font-size: 0.9em;
+        box-sizing: border-box;
+    }
+
+    /* Styling for edit/remove button group in table cells */
+    .all-games-box td .button-group {
+        display: flex;
+        justify-content: center; /* Center buttons */
+        gap: 5px; /* Space between buttons */
+        margin-top: 0; /* Remove default margin */
+    }
+     .all-games-box td .button-group button {
+         padding: 6px 10px; /* Smaller padding for table buttons */
+         font-size: 0.8em; /* Smaller font size for table buttons */
+         margin-right: 0; /* Remove default margin-right */
+     }
+
+
+    /* Manual History Add section styles */
+    .manual-history-add {
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+
+    .manual-history-add .form-group {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .manual-history-add .form-group label {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .manual-history-add .form-group select {
+        margin-bottom: 0;
+        flex-grow: 1;
+    }
+
+    .manual-history-add .form-group button {
+         margin-bottom: 0;
+         flex-shrink: 0;
+    }
+
+    #message {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 6px;
+      display: none;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      border: 3px solid;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #message::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.05) 50%, transparent);
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    .message-success {
+      background-color: #388e3c;
+      color: #e8f5e9;
+      border-color: #81c784;
+    }
+    .message-error {
+      background-color: #c62828;
+      color: #ffebee;
+      border-color: #ef9a9a;
+    }
+
+    /* Theme Switcher Styles */
+    .theme-switcher {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .theme-switcher label {
+        margin-bottom: 0;
+        font-size: 1em;
+    }
+
+    .theme-switcher select {
+        width: auto;
+        margin-bottom: 0;
+        padding: 8px 12px;
+        font-size: 1em;
+    }
+
+    /* Custom Confirmation Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        display: none; /* Hidden by default */
+    }
+
+    .modal-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-width: 400px;
+        width: 90%;
+    }
+
+     .modal-content h3 {
+         margin-top: 0;
+         color: #333;
+     }
+
+    .modal-content p {
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .modal-buttons button {
+        margin: 0 10px;
+         padding: 10px 20px;
+         font-size: 0.9em;
+         text-transform: none;
+    }
+
+    /* Explanation Section Styles */
+    #explanation {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        display: none; /* Hidden by default */
+        text-align: left; /* Align text left */
+    }
+
+     #explanation h3 {
+         text-align: center; /* Center the heading */
+         margin-top: 0;
+         margin-bottom: 15px;
+     }
+
+     #explanation p {
+         margin-bottom: 15px;
+     }
+
+     #explanation ul {
+         margin-bottom: 15px;
+         padding-left: 20px;
+     }
+
+     #explanation li {
+         margin-bottom: 8px;
+     }
+
+
+    /* Steampunk Theme (Default) */
+    body.steampunk {
+      font-family: 'Roboto Slab', serif;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      background-image:
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhelaWdodD0iMTAwJSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGUPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHN0aXRjaFRpbGluZz0ic3RpdGNoQ29sb3JzIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM5MTc0NjUiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9IjAuMiIvPgogIDxyZWN0IHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIiBmaWxsPSIjNDU1QTZCIiBmaWx0ZXJwYXJhbXMgPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0ibzAuMTNSIi8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkIzMDAiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjA3Ii8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM3OTU1NDgiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjEwIi8+Cjwvc3ZnPg=='),
+        linear-gradient(to bottom, #3a241d 0%, #1a1a1a 80%);
+      background-blend-mode: overlay, multiply;
+      background-size: cover;
+    }
+
+    body.steampunk .container {
+      background-color: rgba(46, 30, 26, 0.98);
+      box-shadow:
+        0 0 0 5px #ffb300,
+        0 0 0 10px #795548,
+        0 20px 50px rgba(0,0,0,0.7);
+    }
+
+    body.steampunk .container::before,
+    body.steampunk .container::after,
+    body.steampunk .container > :first-child::before,
+    body.steampunk .container > :first-child::after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI0JDQUFhNCIgZD0iTTIgMTIgQTEwIDEwIDAgMCAxIDEyIDIgQTEwIDEwIDAgMCAxIDIyIDEyQTEwIDEwIDAgMCAxIDEyIDIyQTEwIDEwIDAgMCAxIDIgMTIgTTExIDE1VjE3SDEzVjE1SDExTTExIDdWMTRIM十三Vjd0gxMVoiLz48L3N2Z3M'); /* Gear icon */
+        background-size: cover;
+        filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.8));
+        animation: spin 5s linear infinite;
+    }
+
+    body.steampunk .container::before { top: 15px; left: 15px; }
+    body.steampunk .container::after { top: 15px; right: 15px; }
+    body.steampunk .container > :first-child::before { bottom: 15px; left: 15px; }
+    body.steampunk .container > :first-child::after { bottom: 15px; right: 15px; }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+
+    body.steampunk h1 {
+      font-family: 'Cinzel Decorative', cursive;
+      color: #ffeb3b;
+      text-shadow:
+        0 0 5px rgba(255, 193, 7, 0.5),
+        0 0 10px rgba(255, 193, 7, 0.4),
+        3px 3px 15px rgba(0,0,0,0.8);
+    }
+
+    body.steampunk h1::before, body.steampunk h1::after {
+        content: '⚙️'; /* Gear icon */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8em;
+        color: #bcaaa4;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    }
+
+    body.steampunk h1::before { left: 15px; }
+    body.steampunk h1::after { right: 15px; }
+
+    body.steampunk .subtitle {
+        font-family: 'Roboto Slab', serif;
+        color: #d7ccc8;
+    }
+
+    body.steampunk h2, body.steampunk h3 {
+      font-family: 'Cinzel Decorative', cursive;
+      color: #ffa000;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+    }
+
+    body.steampunk h2::after {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 2px;
+        background: linear-gradient(to right, transparent, #795548, transparent);
+        margin: 10px auto 0;
+    }
+
+    body.steampunk label {
+        color: #d7ccc8;
+    }
+
+    body.steampunk input[type="text"], body.steampunk input[type="number"], body.steampunk select {
+      background-color: #4e342e;
+      color: #ffecb3;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+    }
+    body.steampunk input[type="text"]:focus, body.steampunk input[type="number"]:focus, body.steampunk select:focus {
+      background-color: #5d4037;
+      box-shadow:
+        inset 0 2px 5px rgba(0,0,0,0.3),
+        0 0 15px rgba(255, 179, 0, 0.9);
+    }
+
+     body.steampunk select {
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23ffb300%22%20d%3D%22M9.293%2012.95l.707.707L15.657%208l-1.414-1.414L10%2010.828%205.757%206.586%204.343%208z%22%2F%3E%3C%2Fsvg%3E');
+        background-repeat: no-repeat;
+        background-position: right 15px center; /* Adjusted position */
+        background-size: 1em auto; /* Set size explicitly */
+    }
+
+
+    body.steampunk button {
+      background: linear-gradient(to bottom, #6d4c41 0%, #4e342e 100%);
+      color: #ffeb3b;
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    body.steampunk button:hover {
+      background: linear-gradient(to bottom, #ffb300 0%, #ffa000 100%);
+      color: #4e342e;
+      transform: translateY(-3px);
+      /* Adjusted box-shadow for a less "dropped" look */
+      box-shadow:
+        0 4px 8px rgba(0,0,0,0.5), /* Reduced vertical offset */
+        0 0 15px rgba(255, 179, 0, 0.7); /* Increased glow */
+    }
+     body.steampunk button:active {
+      transform: translateY(0);
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.4),
+        inset 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    body.steampunk .game-item button.mark-played {
+      background: linear-gradient(to bottom, #4caf50 0%, #388e3c 100%);
+      color: #e8f5e9;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.steampunk .game-item button.mark-played:hover {
+      background: linear-gradient(to bottom, #81c784 0%, #4caf50 100%);
+      color: #1b5e20;
+      /* Adjusted box-shadow */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 10px rgba(76, 175, 80, 0.7);
+    }
+    body.steampunk .history-item button.unmark-played {
+      background: linear-gradient(to bottom, #ef5350 0%, #c62828 100%);
+      color: #ffebee;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.steampunk .history-item button.unmark-played:hover {
+      background: linear-gradient(to bottom, #ef9a9a 0%, #ef5350 100%);
+      color: #b71c1c;
+       /* Adjusted box-shadow */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 10px rgba(229, 57, 53, 0.7);
+    }
+    body.steampunk .history-box > button {
+      background: linear-gradient(to bottom, #ffb300 0%, #ff9800 100%);
+      color: #4e342e;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.steampunk .history-box > button:hover {
+      background: linear-gradient(to bottom, #ff9800 0%, #e65100 100%);
+      color: #333;
+       /* Adjusted box-shadow */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 10px rgba(255, 152, 0, 0.7);
+    }
+    body.steampunk .controls button {
+      background: linear-gradient(to bottom, #ffeb3b 0%, #ffb300 100%);
+      color: #4e342e;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.steampunk .controls button:hover {
+      background: linear-gradient(to bottom, #ffb300 0%, #ffa000 100%);
+      color: #3e2723;
+       /* Adjusted box-shadow */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 15px rgba(255, 235, 59, 0.9);
+    }
+
+    body.steampunk .all-games-box > button {
+        background: linear-gradient(to bottom, #e57373 0%, #f44336 100%);
+        color: #ffebee;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    body.steampunk .all-games-box > button:hover {
+        background: linear-gradient(to bottom, #f44336 0%, #d32f2f 100%);
+        color: #ffebee;
+         /* Adjusted box-shadow */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 10px rgba(244, 67, 54, 0.7);
+    }
+
+    body.steampunk .history-box button.undo-played {
+        background: linear-gradient(to bottom, #64b5f6 0%, #2196f3 100%);
+        color: #e3f2fd;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    body.steampunk .history-box button.undo-played:hover {
+        background: linear-gradient(to bottom, #2196f3 0%, #1976d2 100%);
+        color: #bbdefb;
+         /* Adjusted box-shadow */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 10px rgba(33, 150, 243, 0.7);
+    }
+
+    /* Steampunk specific button styles for edit/remove in table */
+    body.steampunk .all-games-box td .button-group button.edit-game {
+        background: linear-gradient(to bottom, #ffeb3b 0%, #ffb300 100%);
+        color: #4e342e;
+    }
+    body.steampunk .all-games-box td .button-group button.edit-game:hover {
+        background: linear-gradient(to bottom, #ffb300 0%, #ffa000 100%);
+        color: #3e2723;
+    }
+    body.steampunk .all-games-box td .button-group button.remove-game {
+        background: linear-gradient(to bottom, #ef5350 0%, #c62828 100%);
+        color: #ffebee;
+    }
+     body.steampunk .all-games-box td .button-group button.remove-game:hover {
+        background: linear-gradient(to bottom, #c62828 0%, #d32f2f 100%);
+        color: #ffebee;
+     }
+
+     body.steampunk .modal-content {
+         background: #4e342e;
+         border: 2px solid #ffb300;
+         color: #ffecb3;
+     }
+     body.steampunk .modal-content h3 {
+         color: #ffeb3b;
+     }
+     body.steampunk .modal-content p {
+         color: #d7ccc8;
+     }
+     body.steampunk .modal-buttons button {
+        background: linear-gradient(to bottom, #6d4c41 0%, #4e342e 100%);
+        color: #ffeb3b;
+     }
+     body.steampunk .modal-buttons button:hover {
+        background: linear-gradient(to bottom, #ffb300 0%, #ffa000 100%);
+        color: #4e342e;
+     }
+
+    body.steampunk #explanation {
+        background-color: rgba(78, 52, 46, 0.9); /* Darker brown, more opaque */
+        color: #ffecb3;
+        border: 1px solid #ffb300;
+    }
+    body.steampunk #explanation h3 {
+        color: #ffeb3b;
+    }
+    body.steampunk #explanation p,
+    body.steampunk #explanation li {
+        color: #d7ccc8;
+    }
+
+
+    body.steampunk .game-item, body.steampunk .history-item {
+      background: #5d4037;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
+
+    body.steampunk .game-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 8px;
+        background-color: #ffb300;
+        transition: width 0.3s ease;
+    }
+
+    body.steampunk .history-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 8px;
+        background-color: #c62828;
+        transition: width 0.3s ease;
+    }
+
+
+    body.steampunk .game-item:hover, body.steampunk .history-item:hover {
+      background-color: #6d4c41;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+    }
+     body.steampunk .game-item:hover::before,
+     body.steampunk .history-item:hover::before {
+         width: 12px;
+     }
+
+
+    body.steampunk .game-item span, body.steampunk .history-item .game-name {
+      color: #ffecb3;
+    }
+
+     body.steampunk .history-item .play-date {
+        color: #d7ccc8;
+    }
+
+    body.steampunk .history-item {
+      border-bottom: 1px dashed #795548;
+    }
+
+    body.steampunk .manual-history-add {
+        border-top: 1px dashed #795548;
+    }
+
+    body.steampunk .all-games-box table {
+        background-color: #6d4c41;
+        border: 2px solid #795548;
+    }
+
+    body.steampunk .all-games-box th,
+    body.steampunk .all-games-box td {
+        border-bottom: 1px solid #795548;
+    }
+
+    body.steampunk .all-games-box th {
+        background-color: #4e342e;
+        color: #ffeb3b;
+    }
+
+    body.steampunk .all-games-box td {
+        color: #ffecb3;
+        font-size: 1.1em; /* Increased font size */
+    }
+
+    body.steampunk .all-games-box tr:hover:not(.editing) { /* Exclude editing row from hover effect */
+        background-color: #5d4037;
+        cursor: pointer; /* Indicate clickable row */
+    }
+
+     body.steampunk .all-games-box td::before {
+        color: #ffb300;
+        font-family: 'Cinzel Decorative', cursive;
+     }
+
+
+    /* Cyberpunk Theme */
+    body.cyberpunk {
+      font-family: 'Rajdhani', sans-serif; /* More cyberpunk body font */
+      background: #0a0a0a; /* Dark, almost black background */
+      color: #00ffff; /* Cyan neon color */
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        url('https://i.pinimg.com/1200x/99/77/e7/9977e7a608a8d25b4946235e6c412a07.jpg'); /* New background image */
+      background-size: 20px 20px, cover; /* Grid size, Image size */
+      background-position: center, center; /* Center grid, Center image */
+      background-repeat: repeat, no-repeat; /* Repeat grid, No repeat image */
+      background-attachment: fixed, fixed; /* Keep both fixed */
+      background-blend-mode: overlay, normal; /* Blend grid over image */
+    }
+
+    body.cyberpunk .container {
+      background-color: rgba(0, 0, 0, 0.9); /* Less transparent dark */
+      box-shadow:
+        0 0 15px rgba(0, 255, 255, 0.8), /* Stronger Cyan glow */
+        0 0 25px rgba(0, 255, 255, 0.6),
+        0 0 40px rgba(0, 255, 255, 0.4);
+      border: 2px solid #ff00ff; /* Magenta border */
+      border-image: linear-gradient(45deg, #00ffff, #ff00ff) 1; /* Gradient border */
+      padding: 48px; /* Adjusted padding for border image */
+    }
+
+    body.cyberpunk .container::before,
+    body.cyberpunk .container::after,
+    body.cyberpunk .container > :first-child::before,
+    body.cyberpunk .container > :first-child::after {
+        content: ''; /* Remove gear icon */
+        background: none;
+        box-shadow: none;
+        border: none; /* Remove previous corner borders */
+    }
+
+
+    body.cyberpunk h1 {
+      font-family: 'Syncopate', sans-serif; /* More aggressive heading font */
+      color: #00ffff; /* Cyan neon */
+      text-shadow:
+        0 0 10px rgba(0, 255, 255, 1), /* Stronger glow */
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 30px rgba(0, 255, 255, 0.6);
+      letter-spacing: 3px; /* Increased letter spacing */
+      font-size: 3.5em; /* Increased font size for main title */
+    }
+
+     body.cyberpunk h1::before, body.cyberpunk h1::after {
+        content: ''; /* Remove gear icon */
+        animation: none;
+     }
+
+     body.cyberpunk .subtitle {
+         font-family: 'Orbitron', sans-serif;
+         color: #ff00ff; /* Magenta neon */
+         text-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+     }
+
+
+    body.cyberpunk h2, body.cyberpunk h3 {
+      font-family: 'Orbitron', sans-serif; /* Keep Orbitron for subheadings */
+      color: #ff00ff; /* Magenta neon */
+      text-shadow: 0 0 10px rgba(255, 0, 255, 1); /* Stronger glow */
+      letter-spacing: 1.5px; /* Increased letter spacing */
+      font-size: 1.9em; /* Slightly increased font size for cyberpunk titles */
+    }
+
+     body.cyberpunk h2::after {
+        background: linear-gradient(to right, transparent, #ff00ff, transparent); /* Magenta line */
+     }
+
+
+    body.cyberpunk label {
+        color: #00ff00; /* Green neon */
+        font-family: 'Rajdhani', sans-serif;
+        text-shadow: 0 0 5px rgba(0, 255, 0, 0.8); /* Green glow */
+    }
+
+    body.cyberpunk input[type="text"], input[type="number"],
+    body.cyberpunk select { /* Combined select with inputs */
+      background-color: rgba(0, 0, 0, 0.8); /* More transparent dark */
+      color: #00ffff; /* Cyan neon */
+      box-shadow: inset 0 1px 5px rgba(0, 255, 255, 0.7); /* Cyan glow */
+      border: 1px solid #ff00ff; /* Magenta border */
+      font-family: 'Share Tech Mono', monospace; /* Monospace for inputs */
+      border-radius: 4px; /* Slightly smaller border radius */
+    }
+    body.cyberpunk input[type="text"]:focus, body.cyberpunk input[type="number"]:focus,
+    body.cyberpunk select:focus { /* Combined select with inputs */
+      background-color: rgba(0, 0, 0, 0.95);
+      box-shadow:
+        inset 0 1px 5px rgba(0, 255, 255, 0.8),
+        0 0 15px rgba(0, 255, 255, 1); /* Stronger Cyan glow on focus */
+      border-color: #00ff00; /* Green border on focus */
+    }
+
+     body.cyberpunk select {
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23ff00ff%22%20d%3D%22M9.293%2012.95l.707.707L15.657%208l-1.414-1.414L10%2010.828%205.757%206.586%204.343%208z%22%2F%3E%3C%2Fsvg%3E'); /* Magenta arrow */
+        background-repeat: no-repeat;
+        background-position: right 15px center; /* Adjusted position */
+        background-size: 1em auto; /* Set size explicitly */
+        /* Ensure dropdown background and text color are readable when open */
+         color: #00ff00; /* Green neon text color for options */
+         background-color: rgba(0, 0, 0, 0.9); /* Dark background for dropdown options */
+     }
+     /* Style for the actual options within the select */
+     body.cyberpunk select option {
+         background-color: rgba(0, 0, 0, 0.9); /* Dark background for dropdown options */
+         color: #00ff00; /* Green neon text color for options */
+     }
+
+
+    body.cyberpunk button {
+      background: linear-gradient(to bottom, #ff00ff 0%, #00ffff 100%); /* Magenta to Cyan gradient */
+      color: #0a0a0a; /* Dark text */
+      box-shadow:
+        0 4px 12px rgba(255, 0, 255, 0.6), /* Stronger Magenta glow */
+        inset 0 1px 0 rgba(255,255,255,0.3);
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 4px; /* Slightly smaller border radius */
+      text-transform: uppercase; /* Keep uppercase for buttons */
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Cyan text glow */
+    }
+    body.cyberpunk button:hover {
+      background: linear-gradient(to bottom, #00ffff 0%, #ff00ff 100%); /* Cyan to Magenta gradient */
+      color: #0a0a0a;
+      transform: translateY(-2px);
+      /* Adjusted box-shadow */
+      box-shadow:
+        0 3px 10px rgba(0, 255, 255, 0.8), /* Reduced vertical offset and blur */
+        0 0 20px rgba(0, 255, 255, 1); /* Stronger glow */
+      text-shadow: 0 0 8px rgba(255, 0, 255, 0.7); /* Magenta text glow */
+    }
+     body.cyberpunk button:active {
+      box-shadow:
+        0 4px 8px rgba(255, 0, 255, 0.5),
+        inset 0 0 5px rgba(0,0,0,0.7);
+    }
+
+    body.cyberpunk .game-item button.mark-played {
+      background: linear-gradient(to bottom, #00ff00 0%, #00cc00 100%); /* Green gradient */
+      color: #0a0a0a;
+      box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5); /* Green glow */
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.5); /* Green text glow */
+    }
+    body.cyberpunk .game-item button.mark-played:hover {
+      background: linear-gradient(to bottom, #00cc00 0%, #00ff00 100%);
+      color: #0a0a0a;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 10px rgba(0, 255, 0, 0.7), 0 0 15px rgba(0, 255, 0, 0.9);
+      text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+    }
+
+    body.cyberpunk .history-item button.unmark-played {
+      background: linear-gradient(to bottom, #ff3333 0%, #cc0000 100%); /* Red gradient */
+      color: #0a0a0a;
+      box-shadow: 0 4px 10px rgba(255, 51, 51, 0.5); /* Red glow */
+      text-shadow: 0 0 5px rgba(255, 51, 51, 0.5); /* Red text glow */
+    }
+    body.cyberpunk .history-item button.unmark-played:hover {
+      background: linear-gradient(to bottom, #cc0000 0%, #ff3333 100%);
+      color: #0a0a0a;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 10px rgba(255, 51, 51, 0.7), 0 0 15px rgba(255, 51, 51, 0.9);
+      text-shadow: 0 0 8px rgba(255, 51, 51, 0.7);
+    }
+    body.cyberpunk .history-box > button {
+      background: linear-gradient(to bottom, #ffff00 0%, #ccff00 100%); /* Yellow/Lime gradient */
+      color: #0a0a0a;
+      box-shadow: 0 4px 10px rgba(255, 255, 0, 0.5); /* Yellow glow */
+      text-shadow: 0 0 5px rgba(255, 255, 0, 0.5); /* Yellow text glow */
+    }
+    body.cyberpunk .history-box > button:hover {
+      background: linear-gradient(to bottom, #ccff00 0%, #ffff00 100%);
+      color: #0a0a0a;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 10px rgba(255, 255, 0, 0.7), 0 0 15px rgba(255, 255, 0, 0.9);
+      text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+    }
+    body.cyberpunk .controls button {
+      background: linear-gradient(to bottom, #00ffff 0%, #ff00ff 100%); /* Cyan to Magenta gradient */
+      color: #0a0a0a;
+      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.5); /* Cyan glow */
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Cyan text glow */
+    }
+    body.cyberpunk .controls button:hover {
+      background: linear-gradient(to bottom, #ff00ff 0%, #00ffff 100%); /* Magenta to Cyan gradient */
+      color: #0a0a0a;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 10px rgba(255, 0, 255, 0.7), 0 0 15px rgba(255, 0, 255, 0.9);
+      text-shadow: 0 0 8px rgba(255, 0, 255, 0.7);
+    }
+
+    body.cyberpunk .all-games-box > button {
+        background: linear-gradient(to bottom, #ff3333 0%, #cc0000 100%); /* Red gradient */
+        color: #0a0a0a;
+        box-shadow: 0 4px 10px rgba(255, 51, 51, 0.5); /* Red glow */
+        text-shadow: 0 0 5px rgba(255, 51, 51, 0.5); /* Red text glow */
+    }
+
+    body.cyberpunk .all-games-box > button:hover {
+        background: linear-gradient(to bottom, #cc0000 0%, #ff3333 100%);
+        color: #0a0a0a;
+         /* Adjusted box-shadow */
+        box-shadow: 0 3px 10px rgba(255, 51, 51, 0.7), 0 0 15px rgba(255, 51, 51, 0.9);
+        text-shadow: 0 0 8px rgba(255, 51, 51, 0.7);
+    }
+
+    body.cyberpunk .history-box button.undo-played {
+        background: linear-gradient(to bottom, #00ccff 0%, #0099cc 100%); /* Light blue gradient */
+        color: #0a0a0a;
+        box-shadow: 0 4px 10px rgba(0, 204, 255, 0.5); /* Light blue glow */
+        text-shadow: 0 0 5px rgba(0, 204, 255, 0.5); /* Light blue text glow */
+    }
+
+    body.cyberpunk .history-box button.undo-played:hover {
+        background: linear-gradient(to bottom, #0099cc 0%, #00ccff 100%);
+        color: #0a0a0a;
+         /* Adjusted box-shadow */
+        box-shadow: 0 3px 10px rgba(0, 204, 255, 0.7), 0 0 15px rgba(0, 204, 255, 0.9);
+        text-shadow: 0 0 8px rgba(0, 204, 255, 0.7);
+    }
+
+    /* Cyberpunk specific button styles for edit/remove in table */
+    body.cyberpunk .all-games-box td .button-group button.edit-game {
+        background: linear-gradient(to bottom, #00ff00 0%, #00cc00 100%);
+        color: #0a0a0a;
+        text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    }
+     body.cyberpunk .all-games-box td .button-group button.edit-game:hover {
+        background: linear-gradient(to bottom, #00cc00 0%, #00ff00 100%);
+        color: #0a0a0a;
+        text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+     }
+    body.cyberpunk .all-games-box td .button-group button.remove-game {
+        background: linear-gradient(to bottom, #ff3333 0%, #cc0000 100%);
+        color: #0a0a0a;
+        text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+    }
+     body.cyberpunk .all-games-box td .button-group button.remove-game:hover {
+        background: linear-gradient(to bottom, #cc0000 0%, #ff3333 100%);
+        color: #0a0a0a;
+        text-shadow: 0 0 8px rgba(255, 51, 51, 0.7);
+     }
+
+     body.cyberpunk .modal-overlay {
+         background: rgba(0, 255, 255, 0.1);
+     }
+     body.cyberpunk .modal-content {
+         background: rgba(0, 0, 0, 0.9);
+         border: 2px solid #ff00ff;
+         color: #00ff00;
+         box-shadow: 0 0 20px rgba(255, 0, 255, 0.8); /* Stronger glow */
+     }
+      body.cyberpunk .modal-content h3 {
+          color: #00ffff;
+          text-shadow: 0 0 8px rgba(0, 255, 255, 0.9);
+      }
+      body.cyberpunk .modal-content p {
+          color: #00ff00;
+          text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+      }
+      body.cyberpunk .modal-buttons button {
+         background: linear-gradient(to bottom, #ff00ff 0%, #00ffff 100%);
+         color: #0a0a0a;
+         text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+      }
+      body.cyberpunk .modal-buttons button:hover {
+         background: linear-gradient(to bottom, #00ffff 0%, #ff00ff 100%);
+         color: #0a0a0a;
+         text-shadow: 0 0 8px rgba(255, 0, 255, 0.7);
+      }
+
+    body.cyberpunk #explanation {
+        background-color: rgba(0, 0, 0, 0.9);
+        color: #00ff00;
+        border: 1px solid #00ffff;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    }
+    body.cyberpunk #explanation h3 {
+        color: #00ffff;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.9);
+    }
+     body.cyberpunk #explanation p,
+     body.cyberpunk #explanation li {
+         color: #00ff00;
+         text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+     }
+
+
+    body.cyberpunk .game-item, body.cyberpunk .history-item {
+      background: rgba(0, 0, 0, 0.8); /* Darker background */
+      box-shadow: 0 5px 15px rgba(0, 255, 255, 0.8); /* Stronger glow */
+      border: 1px solid #ff00ff; /* Magenta border */
+      border-radius: 4px; /* Smaller border radius */
+    }
+
+    body.cyberpunk .game-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 8px;
+        background-color: #00ffff; /* Cyan accent */
+        transition: width 0.3s ease;
+    }
+
+    body.cyberpunk .history-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 8px;
+        background-color: #ff00ff; /* Magenta accent */
+        transition: width 0.3s ease;
+    }
+
+    body.cyberpunk .game-item:hover, body.cyberpunk .history-item:hover {
+      background-color: rgba(0, 0, 0, 0.95); /* Even darker on hover */
+      box-shadow: 0 8px 20px rgba(0, 255, 255, 1); /* Stronger glow on hover */
+    }
+     body.cyberpunk .game-item:hover::before,
+     body.cyberpunk .history-item:hover::before {
+         width: 12px;
+     }
+
+
+    body.cyberpunk .game-item span, body.cyberpunk .history-item .game-name { /* Apply styling to game name within history */
+      color: #00ff00; /* Green neon */
+      font-family: 'Rajdhani', sans-serif; /* Apply Rajdhani to game names */
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); /* Green glow */
+    }
+
+     body.cyberpunk .history-item .play-date {
+        color: #00ffff; /* Cyan */
+        font-family: 'Share Tech Mono', monospace; /* Monospace for dates */
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.7); /* Cyan glow */
+    }
+
+     body.cyberpunk .history-item {
+      border-bottom: 1px dashed #ff00ff; /* Magenta dashed border */
+    }
+
+     body.cyberpunk .manual-history-add {
+        border-top: 1px dashed #ff00ff; /* Magenta dashed separator */
+    }
+
+    body.cyberpunk .all-games-box table {
+        background-color: rgba(0, 0, 0, 0.9); /* Darker table background */
+        border: 2px solid #00ffff; /* Cyan border */
+        box-shadow: 0 5px 15px rgba(0, 255, 255, 0.7); /* Cyan glow */
+    }
+
+    body.cyberpunk .all-games-box th,
+    body.cyberpunk .all-games-box td {
+        border-bottom: 1px solid #ff00ff; /* Magenta border */
+    }
+
+    body.cyberpunk .all-games-box th {
+        background-color: rgba(0, 0, 0, 0.98); /* Even darker header */
+        color: #ff00ff; /* Magenta */
+        font-family: 'Orbitron', sans-serif;
+        text-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+    }
+
+    body.cyberpunk .all-games-box td {
+        color: #00ff00; /* Green neon */
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.2em; /* Increased font size for Cyberpunk table data */
+        text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+    }
+
+    body.cyberpunk .all-games-box tr:hover:not(.editing) { /* Exclude editing row from hover effect */
+        background-color: rgba(0, 0, 0, 0.95); /* Darker hover */
+        cursor: pointer; /* Indicate clickable row */
+    }
+
+     body.cyberpunk .all-games-box td::before {
+        color: #00ffff; /* Cyan */
+        font-family: 'Orbitron', sans-serif;
+     }
+
+    /* Fantasy Theme */
+    body.fantasy {
+      font-family: 'Fondamento', cursive; /* Fantasy-style font */
+      background-image: url('https://i.pinimg.com/1200x/77/ef/f9/77eff9dc1ed8869901170770c9c4ff5b.jpg'); /* New background image */
+      background-size: cover;
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat;
+      background-attachment: fixed; /* Keep background fixed when scrolling */
+      color: #3e2723; /* Dark brown text */
+    }
+
+    body.fantasy .container {
+      background-color: rgba(240, 248, 255, 0.7); /* Alice Blue - lighter, less beige, reduced opacity */
+      box-shadow:
+        0 0 0 5px #4682b4, /* Steel Blue border */
+        0 0 0 10px #8fbc8f, /* Dark Sea Green border */
+        0 20px 50px rgba(0,0,0,0.5);
+      border: none;
+    }
+
+    body.fantasy .container::before,
+    body.fantasy .container::after,
+    body.fantasy .container > :first-child::before,
+    body.fantasy .container > :first-child::after {
+        content: ''; /* Remove cyberpunk corners */
+        background: none;
+        box-shadow: none;
+        border: none;
+    }
+
+
+    body.fantasy h1 {
+      font-family: 'MedievalSharp', cursive;
+      color: #483d8b; /* Dark Slate Blue */
+      text-shadow:
+        1px 1px 0 #b0c4de, /* Light Steel Blue outline */
+        2px 2px 0 #6a5acd; /* Slate Blue outline */
+      font-size: 3.5em; /* Increased font size for the main title */
+    }
+
+     body.fantasy h1::before, body.fantasy h1::after {
+        content: ''; /* Remove gear icon */
+        animation: none;
+     }
+
+     body.fantasy .subtitle {
+         font-family: 'Fondamento', cursive;
+         color: #3e2723; /* Dark brown for better contrast with main title */
+         text-shadow: 1px 1px 2px rgba(255,255,255,0.5); /* Light shadow for readability */
+         margin-top: -15px; /* Adjusted space */
+         margin-bottom: 25px; /* Adjusted space */
+     }
+
+
+    body.fantasy h2, body.fantasy h3 {
+      font-family: 'MedievalSharp', cursive;
+      color: #3e2723; /* Dark brown for better readability */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6); /* Stronger shadow */
+      font-size: 1.8em; /* Increased font size for fantasy titles */
+    }
+
+     body.fantasy h2::after {
+        background: linear-gradient(to right, transparent, #483d8b, transparent); /* Dark Slate Blue line */
+     }
+
+
+    body.fantasy label {
+        color: #483d8b; /* Dark Slate Blue */
+    }
+
+    body.fantasy input[type="text"], input[type="number"], select {
+      background-color: #e0ffff; /* Light Cyan */
+      color: #3e2723; /* Dark brown */
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+      border: 1px solid #66cdaa; /* Medium Aquamarine border */
+      font-family: 'Fondamento', cursive;
+    }
+    body.fantasy input[type="text"]:focus, input[type="number"]:focus, select:focus {
+      background-color: #afeeee; /* Pale Turquoise */
+      box-shadow:
+        inset 0 1px 3px rgba(0,0,0,0.2),
+        0 0 8px rgba(70, 130, 180, 0.7); /* Steel Blue glow */
+      border-color: #4682b4; /* Steel Blue */
+    }
+
+     body.fantasy select {
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23483d8b%22%20d%3D%22M9.293%2012.95l.707.707L15.657%208l-1.414-1.414L10%2010.828%205.757%206.586%204.343%208z%22%2F%3E%3C%2Fsvg%3E'); /* Dark Slate Blue arrow */
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 1em auto;
+     }
+
+
+    body.fantasy button {
+      background: linear-gradient(to bottom, #ffd700 0%, #b8860b 100%); /* Gold to Dark Goldenrod */
+      color: #483d8b; /* Dark Slate Blue text */
+      box-shadow:
+        0 4px 8px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+      font-family: 'MedievalSharp', cursive;
+      text-transform: capitalize; /* Less uppercase */
+    }
+    body.fantasy button:hover {
+      background: linear-gradient(to bottom, #b8860b 0%, #daa520 100%); /* Dark Goldenrod to Goldenrod */
+      color: #f0e6d2; /* Light parchment */
+      transform: translateY(-2px);
+       /* Adjusted box-shadow */
+      box-shadow:
+        0 3px 8px rgba(0,0,0,0.4), 0 0 10px rgba(139, 69, 19, 0.7); /* Saddle brown glow */
+    }
+     body.fantasy button:active {
+      box-shadow:
+        0 4px 8px rgba(0,0,0,0.3),
+        inset 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    body.fantasy .game-item button.mark-played {
+      background: linear-gradient(to bottom, #8fbc8f 0%, #3cb371 100%); /* Dark Sea Green to Medium Sea Green */
+      color: #3e2723;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.fantasy .game-item button.mark-played:hover {
+      background: linear-gradient(to bottom, #3cb371 0%, #2e8b57 100%); /* Medium Sea Green to Sea Green */
+      color: #f0e6d2;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 0 10px rgba(60, 179, 113, 0.7);
+    }
+    body.fantasy .history-item button.unmark-played {
+      background: linear-gradient(to bottom, #e9967a 0%, #cd5c5c 100%); /* Dark Salmon to Indian Red */
+      color: #3e2723;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.fantasy .history-item button.unmark-played:hover {
+      background: linear-gradient(to bottom, #cd5c5c 0%, #dc143c 100%); /* Indian Red to Crimson */
+      color: #f0e6d2;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 0 10px rgba(205, 92, 92, 0.7);
+    }
+    body.fantasy .history-box > button {
+      background: linear-gradient(to bottom, #6495ed 0%, #4682b4 100%); /* Cornflower Blue to Steel Blue */
+      color: #3e2723;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.fantasy .history-box > button:hover {
+      background: linear-gradient(to bottom, #4682b4 0%, #5f9ea0 100%); /* Steel Blue to Cadet Blue */
+      color: #f0e6d2;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 0 10px rgba(100, 149, 237, 0.7);
+    }
+    body.fantasy .controls button {
+      background: linear-gradient(to bottom, #ffd700 0%, #b8860b 100%); /* Gold to Dark Goldenrod */
+      color: #483d8b; /* Dark Slate Blue */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    body.fantasy .controls button:hover {
+      background: linear-gradient(to bottom, #b8860b 0%, #daa520 100%); /* Dark Goldenrod to Goldenrod */
+      color: #f0e6d2;
+       /* Adjusted box-shadow */
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 0 15px rgba(255, 215, 0, 0.9);
+    }
+
+    body.fantasy .all-games-box > button {
+        background: linear-gradient(to bottom, #e9967a 0%, #cd5c5c 100%); /* Dark Salmon to Indian Red */
+        color: #3e2723;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    body.fantasy .all-games-box > button:hover {
+        background: linear-gradient(to bottom, #cd5c5c 0%, #dc143c 100%); /* Indian Red to Crimson */
+        color: #f0e6d2;
+         /* Adjusted box-shadow */
+        box-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 0 10px rgba(233, 150, 122, 0.7);
+    }
+
+    body.fantasy .history-box button.undo-played {
+        background: linear-gradient(to bottom, #8fbc8f 0%, #3cb371 100%); /* Dark Sea Green to Medium Sea Green */
+        color: #3e2723;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    body.fantasy .history-box button.undo-played:hover {
+        background: linear-gradient(to bottom, #3cb371 0%, #2e8b57 100%); /* Medium Sea Green to Sea Green */
+        color: #f0e6d2;
+         /* Adjusted box-shadow */
+        box-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 0 10px rgba(60, 179, 113, 0.7);
+    }
+
+     /* Fantasy specific button styles for edit/remove in table */
+    body.fantasy .all-games-box td .button-group button.edit-game {
+        background: linear-gradient(to bottom, #ffd700 0%, #b8860b 100%);
+        color: #483d8b; /* Dark Slate Blue */
+    }
+     body.fantasy .all-games-box td .button-group button.edit-game:hover {
+        background: linear-gradient(to bottom, #b8860b 0%, #daa520 100%);
+        color: #f0e6d2;
+     }
+    body.fantasy .all-games-box td .button-group button.remove-game {
+        background: linear-gradient(to bottom, #e9967a 0%, #cd5c5c 100%);
+        color: #3e2723;
+    }
+     body.fantasy .all-games-box td .button-group button.remove-game:hover {
+        background: linear-gradient(to bottom, #cd5c5c 0%, #dc143c 100%);
+        color: #f0e6d2;
+     }
+
+     body.fantasy .modal-content {
+         background: #f5f5dc;
+         border: 2px solid #a0522d;
+         color: #3e2723;
+     }
+     body.fantasy .modal-content h3 {
+         color: #8b4513;
+     }
+     body.fantasy .modal-content p {
+         color: #5a3a2b;
+     }
+      body.fantasy .modal-buttons button {
+         background: linear-gradient(to bottom, #d2b48c 0%, #a0522d 100%);
+         color: #3e2723;
+      }
+      body.fantasy .modal-buttons button:hover {
+         background: linear-gradient(to bottom, #a0522d 0%, #8b4513 100%);
+         color: #f0e6d2;
+      }
+
+    body.fantasy #explanation {
+        background-color: rgba(144, 238, 144, 0.9); /* Light green, more opaque */
+        color: #3e2723;
+        border: 1px solid #2e8b57; /* Sea Green border */
+    }
+     body.fantasy #explanation h3 {
+         color: #483d8b; /* Dark Slate Blue */
+     }
+     body.fantasy #explanation p,
+     body.fantasy #explanation li {
+         color: #3e2723;
+     }
+
+
+    body.fantasy .game-item, body.fantasy .history-item {
+      background: #b0c4de; /* Light Steel Blue */
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
+
+    body.fantasy .game-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 8px;
+        background-color: #ffd700; /* Gold accent */
+        transition: width 0.3s ease;
+    }
+
+    body.fantasy .history-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 8px;
+        background-color: #cd5c5c; /* Indian Red accent */
+        transition: width 0.3s ease;
+    }
+
+    body.fantasy .game-item:hover, body.fantasy .history-item:hover {
+      background-color: #778899; /* Light Slate Gray on hover */
+      box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+    }
+     body.fantasy .game-item:hover::before,
+     body.fantasy .history-item:hover::before {
+         width: 12px;
+     }
+
+
+    body.fantasy .game-item span, body.fantasy .history-item .game-name { /* Apply styling to game name within history */
+      color: #3e2723; /* Dark brown */
+    }
+
+     body.fantasy .history-item .play-date {
+        color: #483d8b; /* Dark Slate Blue */
+    }
+
+     body.fantasy .history-item {
+      border-bottom: 1px dashed #6a5acd; /* Slate Blue dashed border */
+    }
+
+     body.fantasy .manual-history-add {
+        border-top: 1px dashed #6a5acd; /* Slate Blue dashed separator */
+    }
+
+    body.fantasy .all-games-box table {
+        background-color: rgba(176, 196, 222, 0.8); /* Light Steel Blue with transparency */
+        border: 2px solid #4682b4; /* Steel Blue border */
+    }
+
+    body.fantasy .all-games-box th,
+    body.fantasy .all-games-box td {
+        border-bottom: 1px solid #4682b4; /* Steel Blue border */
+    }
+
+    body.fantasy .all-games-box th {
+        background-color: rgba(70, 130, 180, 0.9); /* Steel Blue header with transparency */
+        color: #f0e6d2; /* Light parchment for contrast */
+        font-family: 'MedievalSharp', cursive;
+    }
+
+    body.fantasy .all-games-box td {
+        color: #3e2723; /* Dark brown */
+        font-family: 'Fondamento', cursive;
+        font-size: 1.2em; /* Increased font size */
+    }
+
+    body.fantasy .all-games-box tr:hover:not(.editing) { /* Exclude editing row from hover effect */
+        background-color: rgba(119, 136, 153, 0.7); /* Light Slate Gray with transparency on hover */
+        cursor: pointer; /* Indicate clickable row */
+    }
+
+     body.fantasy .all-games-box td::before {
+        color: #483d8b; /* Dark Slate Blue */
+        font-family: 'MedievalSharp', cursive;
+     }
+
+    /* Responsive Adjustments */
+    @media (max-width: 767px) {
+      .container {
+        padding: 30px;
+      }
+      h1 {
+        font-size: 3em;
+        margin-bottom: 30px;
+      }
+      body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
+      body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
+
+      body.cyberpunk h1::before, body.cyberpunk h1::after,
+      body.fantasy h1::before, body.fantasy h1::after {
+          content: ''; /* Remove icons on smaller screens for other themes */
+          animation: none;
+      }
+
+      body.steampunk .container::before { top: 8px; left: 8px; width: 25px; height: 25px; }
+      body.steampunk .container::after { top: 8px; right: 8px; width: 25px; height: 25px; }
+      body.steampunk .container > :first-child::before { bottom: 8px; left: 8px; width: 25px; height: 25px; }
+      body.steampunk .container > :first-child::after { bottom: 8px; right: 8px; width: 25px; height: 25px; }
+
+
+      h2 {
+        font-size: 2em;
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+       body.steampunk h2::after { margin: 5px auto 0; } /* Adjust line margin */
+
+
+      .controls {
+        display: block;
+      }
+      .controls .form-group {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      input[type="text"], input[type="number"], select, button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+      .game-item, .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+      }
+      .game-item::before,
+      .history-item::before {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 6px;
+      }
+
+      .game-item span, .history-item .game-info { /* Adjusted for new game-info flex container */
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 100%; /* Ensure game-info takes full width */
+      }
+       .history-item .play-date {
+           margin-left: 0;
+           margin-top: 5px;
+           display: block;
+       }
+      .game-item .button-group,
+      .history-item .button-group {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      /* Responsive table adjustments */
+      .all-games-box table,
+      .all-games-box thead,
+      .all-games-box tbody,
+      .all-games-box th,
+      .all-games-box td,
+      .all-games-box tr {
+          display: block;
+      }
+
+      .all-games-box thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+      }
+
+      .all-games-box tr {
+          border: 1px solid #795548;
+          margin-bottom: 15px;
+          border-radius: 8px;
+          background-color: #6d4c41;
+      }
+
+       body.cyberpunk .all-games-box tr {
+           border: 1px solid #ff00ff;
+           background-color: rgba(0, 0, 0, 0.7);
+       }
+
+        body.fantasy .all-games-box tr {
+           border: 1px solid #4682b4; /* Adjusted fantasy border */
+           background-color: rgba(176, 196, 222, 0.8); /* Adjusted fantasy background */
+       }
+
+
+      .all-games-box td {
+          border: none;
+          border-bottom: 1px solid #795548;
+          position: relative;
+          padding-left: 50%;
+          text-align: right;
+      }
+
+       body.cyberpunk .all-games-box td {
+           border-bottom: 1px solid #ff00ff;
+       }
+
+        body.fantasy .all-games-box td {
+           border-bottom: 1px solid #4682b4; /* Adjusted fantasy border */
+       }
+
+
+      .all-games-box td:last-child {
+          border-bottom: none;
+      }
+
+      /* Adjust responsive column widths */
+      .all-games-box td:nth-child(1)::before { content: "No."; }
+      .all-games-box td:nth-child(2)::before { content: "Game Name"; }
+      .all-games-box td:nth-child(3)::before { content: "Importance"; }
+      .all-games-box td:nth-child(4)::before { content: "Duration"; }
+       body.steampunk .all-games-box td:nth-child(5)::before { content: "My Score"; color: #ffb300; } /* Responsive label for My Score */
+       body.cyberpunk .all-games-box td:nth-child(5)::before { content: "My Score"; color: #00ffff; } /* Responsive label for My Score */
+       body.fantasy .all-games-box td:nth-child(5)::before { content: "My Score"; color: #483d8b; } /* Responsive label for My Score */
+       body.steampunk .all-games-box td:nth-child(6)::before { content: "Edit/Delete"; color: #ffb300; } /* Responsive label for Edit/Remove */
+       body.cyberpunk .all-games-box td:nth-child(6)::before { content: "Edit/Delete"; color: #00ffff; } /* Responsive label for Edit/Remove */
+       body.fantasy .all-games-box td:nth-child(6)::before { content: "Edit/Delete"; color: #483d8b; } /* Responsive label for Edit/Remove */
+
+
+      .all-games-box td:nth-child(1),
+      .all-games-box td:nth-child(2),
+      .all-games-box td:nth-child(3),
+      .all-games-box td:nth-child(4),
+      .all-games-box td:nth-child(5), /* Include new columns */
+      .all-games-box td:nth-child(6) { /* Include new column */
+          width: auto;
+      }
+
+      /* Responsive adjustments for manual history add */
+      .manual-history-add .form-group {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+      }
+
+      .manual-history-add .form-group label {
+          width: 100%;
+      }
+
+      .manual-history-add .form-group select,
+      .manual-history-add .form-group button {
+          width: 100%;
+          margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body class="steampunk">
+  <div class="container">
+      <div class="theme-switcher">
+          <label for="themeSelector">Theme:</label>
+          <select id="themeSelector">
+              <option value="steampunk">Steampunk</option>
+              <option value="cyberpunk">Cyberpunk</option>
+              <option value="fantasy">Fantasy</option>
+          </select>
+      </div>
+    <h1>The Playful Oracle</h1>
+    <p class="subtitle">Your Next Game Awaits</p>
+
+    <div class="controls">
+      <div class="form-group">
+        <label for="lengthFilter">Filter by Duration:</label>
+        <select id="lengthFilter">
+          <option value="all">Any</option>
+          <option value="short">Short</option>
+          <option value="medium">Medium</option>
+          <option value="long">Long</option>
+        </select>
+      </div>
+      <button id="suggestGamesBtn">Propose 3 Games</button>
+       <button id="explainAppBtn">How it Works</button> </div>
+
+    <div id="explanation">
+        <h3>How The Playful Oracle Works</h3>
+        <p>This app helps you choose a board game from your collection based on your preferences and play history. Here's how:</p>
+        <ul>
+            <li><strong>Game Library:</strong> Add all your board games to the library below. You can include their name, importance (priority), duration, and your personal score.</li>
+            <li><strong>Filtering:</strong> Use the "Filter by Duration" dropdown to narrow down suggestions based on how long you want to play.</li>
+            <li><strong>Suggestions:</strong> Click "Propose 3 Games" and the Oracle will suggest up to three games from your library that haven't been played recently (based on the Chronicle) and match your filter. Games with higher importance are more likely to be suggested.</li>
+            <li><strong>Chronicle of Plays:</strong> When you play a suggested game (or manually record one), it's added to your Chronicle with the date. This helps the Oracle know which games haven't been played recently.</li>
+            <li><strong>Manual Recording:</strong> You can manually add a game to your Chronicle if you played it outside of the suggestions.</li>
+            <li><strong>Editing & Deleting:</strong> You can edit or remove games directly from the Game Library table.</li>
+            <li><strong>Undo:</strong> The "Undo Last Play" button lets you quickly remove the most recent entry from your Chronicle if you made a mistake.</li>
+        </ul>
+        <p>The goal is to help you explore your entire game collection and rediscover forgotten favorites!</p>
+    </div>
+
+
+    <div id="suggestionsContainer" style="display: none;">
+      <div class="game-box" id="suggestions">
+        <h2>🧐 Suggested Games</h2>
+            </div>
+    </div>
+
+
+    <div class="history-box">
+      <h2>📜 Chronicle of Plays</h2>
+      <ul id="historyList"></ul>
+      <button id="resetHistoryBtn">Reset Plays</button>
+      <button id="undoLastPlayedBtn" class="undo-played">↩️ Undo Last Play</button>
+    </div>
+
+    <div class="manual-history-add">
+        <h3>Manually Record Play</h3>
+        <div class="form-group">
+            <label for="manualHistoryGame">Select Game:</label>
+            <select id="manualHistoryGame"></select>
+            <button id="manualAddToHistoryBtn">Record Manually</button>
+        </div>
+    </div>
+
+    <div class="all-games-box">
+      <h2>🗃️ Game Library</h2>
+      <table id="allGamesTable">
+        <thead>
+          <tr>
+            <th data-sort-key="index">No. <span class="sort-indicator"></span></th>
+            <th data-sort-key="name">Game Name <span class="sort-indicator"></span></th>
+            <th data-sort-key="priority">Importance <span class="sort-indicator"></span></th>
+            <th data-sort-key="length">Duration <span class="sort-indicator"></span></th>
+            <th data-sort-key="myScore">My Score <span class="sort-indicator"></span></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+      </table>
+      <button id="removeAllGamesBtn">Remove All from Library</button>
+    </div>
+
+    <div class="add-game-box">
+      <h2>➕ Add New Game</h2>
+      <div id="message"></div>
+      <div class="form-group">
+        <label for="gameName">Game Name:</label>
+        <input type="text" id="gameName" required>
+      </div>
+      <div class="form-group">
+        <label for="gameLength">Duration:</label>
+        <select id="gameLength" required>
+          <option value="short">Short</option>
+          <option value="medium">Medium</option>
+          <option value="long">Long</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="gamePriority">Importance (1-5):</label>
+        <input type="number" id="gamePriority" min="1" max="5" value="1" required>
+      </div>
+       <div class="form-group">
+           <label for="myScore">My Score (0-10):</label> <input type="number" id="myScore" step="0.1" min="0" max="10">
+       </div>
+      <button id="addNewGameBtn">Add Game</button>
+    </div>
+
+    <div id="confirmationModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modalTitle">Confirm Action</h3>
+            <p id="modalMessage">Are you sure you want to proceed?</p>
+            <div class="modal-buttons">
+                <button id="confirmYesBtn">Yes</button>
+                <button id="confirmNoBtn">No</button>
+            </div>
+        </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Helper function to generate a unique ID
+    function generateUniqueId() {
+      return '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Helper function to get current date inYYYY-MM-DD - DayOfWeek format
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+        const day = String(today.getDate()).padStart(2, '0');
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayOfWeek = days[today.getDay()];
+        return `${year}-${month}-${day} - ${dayOfWeek}`;
+    }
+
+    // Load all games from local storage, default to initial list if none found
+    let allGames = JSON.parse(localStorage.getItem("allGames")) || [
+      { id: generateUniqueId(), name: "Merchants of the Dark Road", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Pioneer Days", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Merchants Cove", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "51st State", priority: 2, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Imperium Horizon", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Marvel Zombies", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Paris: New Eden", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Star Wars: The Clone Wars", priority: 2, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Hadara", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Circadians: Chaos Order", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Empires of the North", priority: 2, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Praga Caput Regni", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Rome and Roll", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Expeditions", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Endless Winter", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Tapestry", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Minos", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Coimbra", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Darwin's Journey", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Reavers of Midgard", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Circadians: First Light", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Marvel United", priority: 3, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Wild Tiled West", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Fliptown", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Assassin's Creed", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Star Wars: Imperial Assault", priority: 4, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "For Northwood", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Creature Caravan", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Mass Effect", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      // Added initial excluded games with the new structure
+      { id: generateUniqueId(), name: "Massive Darkness 2", priority: 3, length: "long", isExcluded: true, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Star Wars Mandalorian", priority: 3, length: "medium", isExcluded: true, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "The Legacy of Yu", priority: 2, length: "short", isExcluded: true, myScore: null } // Added myScore
+    ];
+
+
+    // Load played games from local storage, default to empty array if none found
+    // Played games now store objects with id and date
+    let playedGamesHistory = JSON.parse(localStorage.getItem("playedGamesHistory") || "[]");
+
+    // Variable to store the index of the last game played in the playedGamesHistory array for undo functionality
+    let lastPlayedIndex = null;
+
+    // State for sorting
+    let currentSortKey = 'index';
+    let currentSortDirection = 'asc'; // 'asc' or 'desc'
+
+    // Variables for custom confirmation modal
+    let currentConfirmAction = null; // Stores the function to call on confirmation
+    let currentConfirmData = null; // Stores data needed for the confirmation function
+
+    // Function to save the current state of allGames to local storage
+    function saveAllGames() {
+      localStorage.setItem("allGames", JSON.stringify(allGames));
+    }
+
+    // Function to save the current state of playedGamesHistory to local storage
+    function savePlayedGamesHistory() {
+      localStorage.setItem("playedGamesHistory", JSON.stringify(playedGamesHistory));
+    }
+
+    // Function to display messages to the user
+    function showMessage(msg, type = 'success') { // Default type to success
+      const messageDiv = document.getElementById("message");
+      messageDiv.textContent = msg;
+      messageDiv.className = ''; // Reset classes
+      messageDiv.classList.add(type === 'success' ? 'message-success' : 'message-error');
+      messageDiv.style.display = 'block';
+      // Hide message after a few seconds
+      setTimeout(() => {
+        messageDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    // Function to show the custom confirmation modal
+    function showConfirmationModal(title, message, onConfirm, data) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalMessage').textContent = message;
+        currentConfirmAction = onConfirm;
+        currentConfirmData = data;
+        document.getElementById('confirmationModal').style.display = 'flex';
+    }
+
+    // Function to hide the custom confirmation modal
+    function hideConfirmationModal() {
+        document.getElementById('confirmationModal').style.display = 'none';
+        currentConfirmAction = null;
+        currentConfirmData = null;
+    }
+
+    // Function to toggle the visibility of the explanation section
+    function toggleExplanation() {
+        const explanationDiv = document.getElementById('explanation');
+        if (explanationDiv.style.display === 'none' || explanationDiv.style.display === '') {
+            explanationDiv.style.display = 'block';
+        } else {
+            explanationDiv.style.display = 'none';
+        }
+    }
+
+
+    // Function to suggest games based on filter, played status, and excluded status
+    function suggestGames() {
+      const filter = document.getElementById("lengthFilter").value;
+
+      // Get IDs of games that have been played at least once
+      const playedGameIds = playedGamesHistory.map(entry => entry.id);
+
+      // Filter games: not played, not excluded, and match the length filter
+      const eligibleGames = allGames.filter(game =>
+        !playedGameIds.includes(game.id) &&
+        !game.isExcluded &&
+        (filter === "all" || filter === game.length)
+      );
+
+      // Create a weighted pool of eligible games based on priority
+      let weightedPool = [];
+      eligibleGames.forEach(game => {
+        // Ensure priority is a valid number and at least 1
+        const effectivePriority = Math.max(1, parseInt(game.priority, 10) || 1);
+        for (let i = 0; i < effectivePriority; i++) {
+          weightedPool.push(game.id); // Add game ID to the pool
+        }
+      });
+
+      // Select up to 3 unique game IDs from the weighted pool
+      let suggestedGameIds = [];
+      while (suggestedGameIds.length < 3 && weightedPool.length > 0) {
+        const randomIndex = Math.floor(Math.random() * weightedPool.length);
+        const pickedGameId = weightedPool[randomIndex];
+
+        if (!suggestedGameIds.includes(pickedGameId)) {
+          suggestedGameIds.push(pickedGameId);
+        }
+
+        // Remove all instances of the picked game ID from the weighted pool for uniqueness in this round
+        weightedPool = weightedPool.filter(id => id !== pickedGameId);
+      }
+
+      // Get the full game objects for the suggested IDs
+      const suggestions = suggestedGameIds.map(id => allGames.find(game => game.id === id)).filter(game => game); // Filter out any potential undefined
+
+      // Display the suggestions
+      const container = document.getElementById("suggestions");
+      container.innerHTML = "<h2>🧐 Suggested Games</h2>";
+      if (suggestions.length === 0) {
+        container.innerHTML += "<p>No games available for suggestion with the current filter and chronicle.</p>";
+      } else {
+        suggestions.forEach(game => {
+          const div = document.createElement("div");
+          div.className = "game-item";
+          // Updated button text
+          div.innerHTML = `<span>${game.name}</span>
+            <div class="button-group">
+              <button class="mark-played" data-id="${game.id}">✅ Pick this one</button>
+            </div>`;
+          container.appendChild(div);
+        });
+      }
+
+      // Show the suggestions container if there are suggestions
+      if (suggestions.length > 0) {
+          document.getElementById('suggestionsContainer').style.display = 'block';
+      } else {
+           document.getElementById('suggestionsContainer').style.display = 'none';
+      }
+    }
+
+    // Function to mark a game as played
+    function markAsPlayed(gameId) {
+      const game = allGames.find(g => g.id === gameId);
+      if (game) {
+          const playEntry = { id: gameId, date: getCurrentDate() };
+          playedGamesHistory.push(playEntry);
+          savePlayedGamesHistory();
+          updateHistory();
+          lastPlayedIndex = playedGamesHistory.length - 1; // Store the index of the added entry
+          // Clear and hide the suggestions section after a game is marked as played
+          document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+          document.getElementById('suggestionsContainer').style.display = 'none';
+          showMessage(`"${game.name}" recorded in Chronicle.`, "success");
+      } else {
+          showMessage("Error: Game not found in compendium.", "error");
+      }
+    }
+
+    // Function to reset the played games history
+    function resetHistory() {
+        showConfirmationModal(
+            "Reset Chronicle",
+            "Are you sure you want to reset your chronicle of plays? This cannot be undone.",
+            () => {
+                playedGamesHistory = [];
+                savePlayedGamesHistory();
+                updateHistory();
+                lastPlayedIndex = null; // Clear the last played game index on history reset
+                // Clear and hide the suggestions section
+                document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+                document.getElementById('suggestionsContainer').style.display = 'none';
+                showMessage("Chronicle reset.", "success");
+            }
+        );
+    }
+
+    // Function to update the displayed history list
+    function updateHistory() {
+      const list = document.getElementById("historyList");
+      list.innerHTML = "";
+      // Sort history by date descending (comparing only the date part for sorting)
+      const sortedHistory = [...playedGamesHistory].sort((a, b) => new Date(b.date.split(' ')[0]) - new Date(a.date.split(' ')[0]));
+
+
+      sortedHistory.forEach(playEntry => {
+        const game = allGames.find(g => g.id === playEntry.id);
+        if (game) {
+            const li = document.createElement("li");
+            li.className = "history-item";
+            // Store the index of this play entry in the original playedGamesHistory array for unmarking
+             const originalIndex = playedGamesHistory.findIndex(entry => entry.id === playEntry.id && entry.date === playEntry.date); // Find the exact entry
+            // Updated button text and icon
+            li.innerHTML = `<div class="game-info"><span class="game-name">${game.name}</span> <span class="play-date">${playEntry.date}</span></div> <div class="button-group">
+                <button class="unmark-played" data-index="${originalIndex}">❌ Remove</button>
+              </div>`;
+            list.appendChild(li);
+        }
+      });
+    }
+
+    // Function to unmark a game as played based on its index in the history array
+    function unmarkPlayed(index) {
+        if (index >= 0 && index < playedGamesHistory.length) {
+            const removedEntry = playedGamesHistory.splice(index, 1)[0]; // Remove the specific entry
+            savePlayedGamesHistory();
+            updateHistory();
+
+            // If the removed entry was the last one played, update lastPlayedIndex
+            if (lastPlayedIndex !== null && lastPlayedIndex >= index) {
+                 if (lastPlayedIndex === index) {
+                     lastPlayedIndex = null; // The last played item was removed
+                 } else {
+                     lastPlayedIndex--; // Adjust index if an earlier item was removed
+                 }
+            }
+
+            const removedGame = allGames.find(game => game.id === removedEntry.id);
+            showMessage(`"${removedGame ? removedGame.name : 'Game'}" on ${removedEntry.date} removed from Chronicle.`, "success");
+             // Clear and hide the suggestions section as the played status changed
+            document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+            document.getElementById('suggestionsContainer').style.display = 'none';
+        } else {
+             showMessage("Error: Could not find the play entry to remove.", "error");
+        }
+    }
+
+    // New function to undo the last played action
+    function undoLastPlayed() {
+        if (lastPlayedIndex !== null && lastPlayedIndex >= 0 && lastPlayedIndex < playedGamesHistory.length) {
+            const undoneEntry = playedGamesHistory.splice(lastPlayedIndex, 1)[0]; // Remove the last added entry
+            savePlayedGamesHistory();
+            updateHistory();
+            lastPlayedIndex = null; // Clear the last played index after undo
+            const undoneGame = allGames.find(game => game.id === undoneEntry.id);
+            showMessage(`Undid recording "${undoneGame ? undoneGame.name : 'last game'}" on ${undoneEntry.date}.`, "success");
+             // Clear and hide the suggestions section as played status changed
+            document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+            document.getElementById('suggestionsContainer').style.display = 'none';
+        } else {
+            showMessage("No recent game to undo.", "error");
+        }
+    }
+
+    // Function to populate the manual history dropdown
+    function populateManualHistoryDropdown() {
+        const selectElement = document.getElementById('manualHistoryGame');
+        selectElement.innerHTML = ''; // Clear existing options
+
+        // Sort games alphabetically by name
+        const sortedGames = [...allGames].sort((a, b) => a.name.localeCompare(b.name));
+
+        sortedGames.forEach(game => {
+            const option = document.createElement('option');
+            option.value = game.id;
+            option.textContent = game.name;
+            selectElement.appendChild(option);
+        });
+    }
+
+    // Function to manually add a game to history
+    function manualAddToHistory() {
+        const selectElement = document.getElementById('manualHistoryGame');
+        const selectedGameId = selectElement.value;
+
+        if (selectedGameId) {
+            markAsPlayed(selectedGameId); // Use the existing markAsPlayed function
+            // markAsPlayed already shows a success message
+        } else {
+            showMessage("Please select a game to record.", "error");
+        }
+    }
+
+    // Function to sort the allGames array
+    function sortAllGames(key) {
+        if (currentSortKey === key) {
+            currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            currentSortKey = key;
+            currentSortDirection = 'asc';
+        }
+
+        allGames.sort((a, b) => {
+            const valueA = a[key];
+            const valueB = b[key];
+
+            // Handle null/undefined values for My Score during sorting
+            if (key === 'myScore' && (valueA === null || valueB === null)) {
+                if (valueA === null && valueB === null) return 0;
+                if (valueA === null) return currentSortDirection === 'asc' ? 1 : -1; // Nulls last for asc, first for desc
+                if (valueB === null) return currentSortDirection === 'asc' ? -1 : 1; // Nulls last for asc, first for desc
+            }
+
+
+            if (key === 'priority' || key === 'myScore') { // Numeric sort for priority and My Score
+                 const numA = valueA === null || valueA === undefined ? (key === 'myScore' ? -1 : 0) : parseFloat(valueA); // Treat null myScore as -1 for sorting
+                 const numB = valueB === null || valueB === undefined ? (key === 'myScore' ? -1 : 0) : parseFloat(valueB); // Treat null myScore as -1 for sorting
+
+                return currentSortDirection === 'asc' ? numA - numB : numB - numA;
+            } else if (key === 'index') {
+                 // Sort by original index (simulated by current position before sorting)
+                 // Find original index in the unsorted array (this is a bit complex,
+                 // simpler to just keep the initial order as default 'index' sort)
+                 // A simpler approach for 'index' is to just sort by name for 'index' if no other sort is applied
+                 // or revert to initial load order if we stored it.
+                 // A simpler approach for 'index' is to just sort by name alphabetically.
+                 const nameA = a.name.toLowerCase();
+                 const nameB = b.name.toLowerCase();
+                 if (nameA < nameB) return currentSortDirection === 'asc' ? -1 : 1;
+                 if (nameA > nameB) return currentSortDirection === 'asc' ? 1 : -1;
+                 return 0;
+            }
+            else {
+                // Alphabetical sort for name and length
+                const stringA = String(valueA).toLowerCase();
+                const stringB = String(valueB).toLowerCase();
+                if (stringA < stringB) return currentSortDirection === 'asc' ? -1 : 1;
+                if (stringB < stringA) return currentSortDirection === 'asc' ? 1 : -1;
+                return 0;
+            }
+        });
+
+        displayAllGames(); // Re-render the table with sorted data
+    }
+
+
+    // Function to display the full list of all games in a table
+    function displayAllGames() {
+      console.log("displayAllGames called. allGames:", allGames); // Debugging log
+      const tableBody = document.querySelector("#allGamesTable tbody");
+      tableBody.innerHTML = ""; // Clear previous table rows
+
+      // Apply sorting before displaying
+      const sortedGames = [...allGames]; // Create a copy to avoid modifying the original array during sort display
+
+       sortedGames.sort((a, b) => {
+            const valueA = a[currentSortKey];
+            const valueB = b[currentSortKey];
+
+             // Handle null/undefined values for My Score during sorting
+            if (currentSortKey === 'myScore' && (valueA === null || valueB === null)) {
+                if (valueA === null && valueB === null) return 0;
+                if (valueA === null) return currentSortDirection === 'asc' ? 1 : -1; // Nulls last for asc, first for desc
+                if (valueB === null) return currentSortDirection === 'asc' ? -1 : 1; // Nulls last for asc, first for desc
+            }
+
+
+            if (currentSortKey === 'priority' || currentSortKey === 'myScore') { // Numeric sort for priority and My Score
+                 const numA = valueA === null || valueA === undefined ? (currentSortKey === 'myScore' ? -1 : 0) : parseFloat(valueA); // Treat null myScore as -1 for sorting
+                 const numB = valueB === null || valueB === undefined ? (currentSortKey === 'myScore' ? -1 : 0) : parseFloat(valueB); // Treat null myScore as -1 for sorting
+
+                return currentSortDirection === 'asc' ? numA - numB : numB - a;
+            } else if (currentSortKey === 'index') {
+                // Find original index to sort by insertion order
+                 const originalIndexA = allGames.findIndex(game => game.id === a.id);
+                 const originalIndexB = allGames.findIndex(game => game.id === b.id);
+                 return currentSortDirection === 'asc' ? originalIndexA - originalIndexB : originalIndexB - originalIndexA;
+            }
+            else {
+                const stringA = String(valueA).toLowerCase();
+                const stringB = String(valueB).toLowerCase();
+                if (stringA < stringB) return currentSortDirection === 'asc' ? -1 : 1;
+                if (stringA > stringB) return currentSortDirection === 'asc' ? 1 : -1;
+                return 0;
+            }
+        });
+
+
+      sortedGames.forEach((game, index) => { // Added index for numbering
+        const tr = document.createElement("tr");
+        tr.className = game.isExcluded ? 'excluded' : '';
+        tr.dataset.id = game.id; // Store game ID on the table row
+
+        // Add data-label attributes for responsive display
+        tr.innerHTML = `
+          <td data-label="No.">${allGames.findIndex(g => g.id === game.id) + 1}</td>
+          <td data-label="Game Name">${game.name}</td>
+          <td data-label="Importance">${game.priority}</td>
+          <td data-label="Duration">${game.length.charAt(0).toUpperCase() + game.length.slice(1)}</td>
+          <td data-label="My Score">${game.myScore !== null ? game.myScore : '-'}</td>
+          <td data-label="Actions"></td> `;
+        tableBody.appendChild(tr);
+      });
+
+      // Update sort indicators in headers
+      document.querySelectorAll('#allGamesTable th .sort-indicator').forEach(span => span.textContent = ''); // Clear all indicators
+      const activeHeader = document.querySelector(`#allGamesTable th[data-sort-key="${currentSortKey}"] .sort-indicator`);
+      if (activeHeader) {
+          activeHeader.textContent = currentSortDirection === 'asc' ? '▲' : '▼';
+      }
+    }
+
+    // Function to start editing a game inline
+    function startEditGame(gameId, row) {
+        // Prevent editing if another row is already being edited
+        if (document.querySelector('#allGamesTable tr.editing')) {
+            showMessage("Please save or cancel the current edit first.", "error");
+            return;
+        }
+
+        // Find the game in the allGames array
+        const game = allGames.find(g => g.id === gameId);
+        if (!game) return;
+
+        // Store original data in case of cancel
+        row.dataset.originalName = game.name;
+        row.dataset.originalPriority = game.priority;
+        row.dataset.originalLength = game.length;
+        row.dataset.originalMyScore = game.myScore; // Store original My Score
+
+
+        // Add editing class to the row
+        row.classList.add('editing');
+
+        // Get the cells
+        const cells = row.querySelectorAll('td');
+
+        // Replace cell content with input fields
+        cells[1].innerHTML = `<input type="text" class="edit-name" value="${game.name}">`;
+        cells[2].innerHTML = `<input type="number" class="edit-priority" value="${game.priority}" min="1" max="5">`;
+        cells[3].innerHTML = `
+            <select class="edit-length">
+                <option value="short" ${game.length === 'short' ? 'selected' : ''}>Short</option>
+                <option value="medium" ${game.length === 'medium' ? 'selected' : ''}>Medium</option>
+                <option value="long" ${game.length === 'long' ? 'selected' : ''}>Long</option>
+            </select>`;
+        cells[4].innerHTML = `<input type="number" class="edit-my-score" value="${game.myScore !== null ? game.myScore : ''}" step="0.1" min="0" max="10">`; // My Score input
+
+
+         // Add Save, Cancel, and Delete buttons to the Actions cell
+        cells[5].innerHTML = `
+             <div class="button-group">
+                 <button class="save-edit">💾 Save</button>
+                 <button class="cancel-edit">❌ Cancel</button>
+                 <button class="delete-game">🗑️ Delete</button>
+             </div>
+         `;
+
+    }
+
+    // Function to save the edited game
+    function saveEditGame(gameId, row) {
+        const game = allGames.find(g => g.id === gameId);
+        if (!game) return;
+
+        const nameInput = row.querySelector('.edit-name');
+        const priorityInput = row.querySelector('.edit-priority');
+        const lengthSelect = row.querySelector('.edit-length');
+        const myScoreInput = row.querySelector('.edit-my-score'); // Get My Score input
+
+
+        const newName = nameInput.value.trim();
+        const newPriority = parseInt(priorityInput.value, 10);
+        const newLength = lengthSelect.value;
+        // My Score is optional - handle empty string
+        const newMyScore = myScoreInput.value.trim() === '' ? null : parseFloat(myScoreInput.value);
+
+
+        // Basic validation (only for required fields and format of optional fields if entered)
+        if (!newName) {
+            showMessage("Game name cannot be empty.", "error");
+            return;
+        }
+         if (isNaN(newPriority) || newPriority < 1 || newPriority > 5) {
+            showMessage("Importance must be between 1 and 5.", "error");
+            return;
+         }
+          // Validate My Score only if a value is entered
+         if (myScoreInput.value.trim() !== '' && (isNaN(newMyScore) || newMyScore < 0 || newMyScore > 10)) {
+             showMessage("My Score must be between 0 and 10, or left empty.", "error");
+             return;
+         }
+
+
+        // Check if game name already exists (case-insensitive), excluding the current game being edited
+         const existingGame = allGames.find(g => g.name.toLowerCase() === newName.toLowerCase() && g.id !== gameId);
+         if (existingGame) {
+             showMessage(`"${newName}" is already in the compendium.`, "error");
+             return;
+         }
+
+
+        // Update the game object
+        game.name = newName;
+        game.priority = newPriority;
+        game.length = newLength;
+        game.myScore = newMyScore; // Save My Score
+
+
+        saveAllGames(); // Save changes to local storage
+        displayAllGames(); // Re-render the table
+        populateManualHistoryDropdown(); // Update manual history dropdown
+        showMessage(`"${newName}" updated successfully.`, "success");
+    }
+
+    // Function to cancel editing a game
+    function cancelEditGame(gameId, row) {
+         // Revert to original data
+         const originalName = row.dataset.originalName;
+         const originalPriority = row.dataset.originalPriority;
+         const originalLength = row.dataset.originalLength;
+         // Handle 'null' string from dataset when reverting optional fields
+         const originalMyScore = row.dataset.originalMyScore === 'null' ? null : parseFloat(row.dataset.originalMyScore); // Revert My Score
+
+
+         // Find the game in the allGames array to revert its data
+         const game = allGames.find(g => g.id === gameId);
+         if (game) {
+             game.name = originalName;
+             game.priority = parseInt(originalPriority, 10);
+             game.length = originalLength;
+             game.myScore = originalMyScore; // Revert My Score
+         }
+
+         // Remove editing class
+         row.classList.remove('editing');
+
+        // Re-render the row with original data (or just call displayAllGames to refresh the whole table)
+        displayAllGames(); // Re-rendering the whole table is simpler
+        showMessage("Edit cancelled.", "success");
+    }
+
+    // New function to remove a single game (called after confirmation)
+    function removeGame(gameId) {
+        const gameIndex = allGames.findIndex(game => game.id === gameId);
+        if (gameIndex > -1) {
+            const removedGameName = allGames[gameIndex].name;
+
+            allGames.splice(gameIndex, 1); // Remove the game from the array
+            saveAllGames(); // Save the updated list
+
+            // Also remove any history entries for this game
+            const initialHistoryLength = playedGamesHistory.length;
+            playedGamesHistory = playedGamesHistory.filter(entry => entry.id !== gameId);
+             if (playedGamesHistory.length < initialHistoryLength) {
+                 savePlayedGamesHistory(); // Save updated history if changes were made
+                 updateHistory(); // Update history display
+             }
+
+            displayAllGames(); // Update the displayed all games list
+            populateManualHistoryDropdown(); // Update the manual history dropdown
+            // Clear and hide the suggestions section as the game list changed
+            document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+            document.getElementById('suggestionsContainer').style.display = 'none';
+            showMessage(`"${removedGameName}" removed from the compendium.`, "success");
+
+        } else {
+             showMessage("Error: Could not find the game to remove.", "error");
+        }
+    }
+
+    // Function to handle the delete button click during inline edit
+    function handleDeleteClick(gameId) {
+         const game = allGames.find(g => g.id === gameId);
+         if (game) {
+             showConfirmationModal(
+                 "Confirm Deletion",
+                 `Are you sure you want to remove "${game.name}" from the compendium? This cannot be undone.`,
+                 removeGame, // Function to call on confirmation
+                 gameId // Data to pass to the function
+             );
+         }
+    }
+
+
+    // Function to add a new game from the form
+    function addNewGame() {
+      const nameInput = document.getElementById("gameName");
+      const lengthInput = document.getElementById("gameLength");
+      const priorityInput = document.getElementById("gamePriority");
+      const myScoreInput = document.getElementById("myScore"); // Get My Score input
+
+
+      const name = nameInput.value.trim();
+      const length = lengthInput.value;
+      const priority = parseInt(priorityInput.value, 10);
+      // My Score is optional - handle empty string
+      const myScore = myScoreInput.value.trim() === '' ? null : parseFloat(myScoreInput.value);
+
+
+      // Basic validation (only for required fields and format of optional fields if entered)
+      if (!name) {
+        showMessage("Please enter a game name.", "error");
+        return;
+      }
+      if (isNaN(priority) || priority < 1 || priority > 5) {
+        showMessage("Please enter a valid importance between 1 and 5.", "error");
+        return;
+      }
+        // Validate My Score only if a value is entered
+       if (myScoreInput.value.trim() !== '' && (isNaN(myScore) || myScore < 0 || myScore > 10)) {
+           showMessage("My Score must be between 0 and 10, or left empty.", "error");
+           return;
+       }
+
+
+      // Check if game already exists (case-insensitive)
+      if (allGames.some(game => game.name.toLowerCase() === name.toLowerCase())) {
+        showMessage(`"${name}" is already in the compendium.`, "error");
+        return;
+      }
+
+      // Add the new game to the list with a unique ID and default isExcluded to false
+      allGames.push({
+        id: generateUniqueId(),
+        name: name,
+        priority: priority,
+        length: length,
+        isExcluded: false, // New games are not excluded by default
+        myScore: myScore // Add My Score
+      });
+      saveAllGames(); // Save updated all games list
+
+      // Update the displayed lists and dropdown
+      displayAllGames();
+      populateManualHistoryDropdown(); // Update the manual history dropdown
+      // Clear and hide the suggestions section as the game list changed
+      document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+      document.getElementById('suggestionsContainer').style.display = 'none';
+      showMessage(`"${name}" added successfully!`, "success");
+
+      // Clear the form
+      nameInput.value = "";
+      priorityInput.value = 1; // Reset priority to default
+      lengthInput.value = "short"; // Reset length to default
+      myScoreInput.value = ""; // Clear My Score input
+    }
+
+    // New function to remove all games (called after confirmation)
+    function removeAllGamesConfirmed() {
+        allGames = []; // Clear the allGames array
+        playedGamesHistory = []; // Clear the playedGamesHistory array as well
+        lastPlayedIndex = null; // Clear last played index
+        saveAllGames(); // Save the empty allGames list
+        savePlayedGamesHistory(); // Save the empty playedGamesHistory list
+
+        displayAllGames(); // Update the displayed all games list
+        populateManualHistoryDropdown(); // Update the manual history dropdown
+        updateHistory(); // Update the displayed history list
+        // Clear and hide the suggestions section
+        document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+        document.getElementById('suggestionsContainer').style.display = 'none';
+        showMessage("All games removed from the compendium.", "success");
+    }
+
+    // Function to handle the remove all games button click
+    function handleRemoveAllGamesClick() {
+         showConfirmationModal(
+             "Remove All Games",
+             "Are you sure you want to remove ALL games from the compendium? This cannot be undone.",
+             removeAllGamesConfirmed // Function to call on confirmation
+         );
+    }
+
+
+    // Theme Switching Logic
+    const themeSelector = document.getElementById('themeSelector');
+    const body = document.body;
+
+    // Load saved theme from localStorage
+    const savedTheme = localStorage.getItem('gameSelectorTheme') || 'steampunk'; // Default to steampunk
+    body.className = savedTheme; // Apply saved theme class
+    themeSelector.value = savedTheme; // Set dropdown to saved theme
+
+    // Event listener for theme selector change
+    themeSelector.addEventListener('change', function() {
+        const selectedTheme = this.value;
+        body.className = selectedTheme; // Apply the selected theme class
+        localStorage.setItem('gameSelectorTheme', selectedTheme); // Save the selected theme
+    });
+
+
+    // Event Delegation for All Games Table (Sorting and Inline Editing/Deleting)
+    document.getElementById('allGamesTable').addEventListener('click', function(event) {
+      const target = event.target;
+      const row = target.closest('tr');
+      const header = target.closest('th');
+
+      // Handle Sorting (only if clicking a header)
+      if (header) {
+          const sortKey = header.dataset.sortKey;
+          if (sortKey) {
+              sortAllGames(sortKey);
+          }
+      }
+      // Handle clicks within a row (for editing/deleting)
+      else if (row && !row.classList.contains('editing')) { // Only trigger if not already editing
+           const gameId = row.dataset.id;
+           if (gameId) {
+               startEditGame(gameId, row);
+           }
+      }
+      // Handle Save, Cancel, and Delete buttons during inline editing
+       else if (target.classList.contains('save-edit')) {
+           const gameId = target.closest('tr').dataset.id; // Get ID from the row
+           saveEditGame(gameId, target.closest('tr')); // Pass the row element
+       } else if (target.classList.contains('cancel-edit')) {
+           const gameId = target.closest('tr').dataset.id; // Get ID from the row
+           cancelEditGame(gameId, target.closest('tr')); // Pass the row element
+       } else if (target.classList.contains('delete-game')) {
+            const gameId = target.closest('tr').dataset.id; // Get ID from the row
+            handleDeleteClick(gameId); // Use the new handler
+       }
+    });
+
+    // Event Delegation for Suggestions List
+    document.getElementById('suggestions').addEventListener('click', function(event) {
+      const target = event.target;
+      const gameId = target.dataset.id;
+
+      if (!gameId) return;
+
+      // Check if the clicked element or its parent is the mark-played button
+      const markPlayedButton = target.closest('.mark-played');
+      if (markPlayedButton) {
+        const gameId = markPlayedButton.dataset.id;
+        if (gameId) {
+          markAsPlayed(gameId);
+        }
+      }
+    });
+
+    // Event Delegation for History List
+    document.getElementById('historyList').addEventListener('click', function(event) {
+      const target = event.target;
+      // We are now using the index of the history entry for unmarking
+      const index = parseInt(target.dataset.index, 10);
+
+      if (isNaN(index)) return;
+
+      if (target.classList.contains('unmark-played')) {
+        unmarkPlayed(index);
+      }
+    });
+
+    // Event listeners for custom confirmation modal buttons
+    document.getElementById('confirmYesBtn').addEventListener('click', function() {
+        if (currentConfirmAction) {
+            currentConfirmAction(currentConfirmData); // Call the stored action with stored data
+        }
+        hideConfirmationModal();
+    });
+
+     document.getElementById('confirmNoBtn').addEventListener('click', hideConfirmationModal);
+
+
+    // Add event listeners to main buttons
+    document.getElementById('suggestGamesBtn').addEventListener('click', suggestGames);
+    document.getElementById('resetHistoryBtn').addEventListener('click', resetHistory); // Uses custom modal now
+    document.getElementById('addNewGameBtn').addEventListener('click', addNewGame);
+    // Removed event listener for lengthFilter change: document.getElementById('lengthFilter').addEventListener('change', suggestGames);
+    // Add event listener for the new remove all games button (uses custom modal now)
+    document.getElementById('removeAllGamesBtn').addEventListener('click', handleRemoveAllGamesClick);
+    // Add event listener for the new undo button
+    document.getElementById('undoLastPlayedBtn').addEventListener('click', undoLastPlayed);
+    // Add event listener for the manual add to history button
+    document.getElementById('manualAddToHistoryBtn').addEventListener('click', manualAddToHistory);
+    // Add event listener for the new explain app button
+    document.getElementById('explainAppBtn').addEventListener('click', toggleExplanation);
+
+
+    // Initialize the lists and dropdown when the page loads
+    updateHistory();
+    displayAllGames();
+    populateManualHistoryDropdown(); // Populate the dropdown on load
+    // Removed initial call to suggestGames() on load
+  </script>
+</body>
+</html>
