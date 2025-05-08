@@ -1505,8 +1505,11 @@
            margin-top: -15px; /* Adjusted space */
            margin-bottom: 20px; /* Adjusted space */
        }
-      body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.7em; } /* Smaller gears */
-      body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.7em; } /* Smaller gears */
+      body.steampunk h1 {
+          font-size: 2em; /* Further reduced font size for Steampunk h1 on mobile */
+      }
+      body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.6em; } /* Smaller gears */
+      body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.6em; } /* Smaller gears */
 
       body.cyberpunk h1 {
           font-size: 2.2em; /* Significantly smaller font size for Cyberpunk h1 */
