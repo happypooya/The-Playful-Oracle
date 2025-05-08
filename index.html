@@ -1494,14 +1494,19 @@
     /* Responsive Adjustments */
     @media (max-width: 767px) {
       .container {
-        padding: 30px;
+        padding: 30px 15px; /* Adjusted padding for smaller screens */
       }
       h1 {
-        font-size: 3em;
-        margin-bottom: 30px;
+        font-size: 2.5em; /* Slightly smaller font size for h1 */
+        margin-bottom: 20px; /* Reduced margin */
       }
-      body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
-      body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
+       .subtitle {
+           font-size: 1em; /* Smaller subtitle on mobile */
+           margin-top: -15px; /* Adjusted space */
+           margin-bottom: 20px; /* Adjusted space */
+       }
+      body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.7em; } /* Smaller gears */
+      body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.7em; } /* Smaller gears */
 
       body.cyberpunk h1::before, body.cyberpunk h1::after,
       body.fantasy h1::before, body.fantasy h1::after {
@@ -1509,16 +1514,16 @@
           animation: none;
       }
 
-      body.steampunk .container::before { top: 8px; left: 8px; width: 25px; height: 25px; }
-      body.steampunk .container::after { top: 8px; right: 8px; width: 25px; height: 25px; }
-      body.steampunk .container > :first-child::before { bottom: 8px; left: 8px; width: 25px; height: 25px; }
-      body.steampunk .container > :first-child::after { bottom: 8px; right: 8px; width: 25px; height: 25px; }
+      body.steampunk .container::before { top: 8px; left: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
+      body.steampunk .container::after { top: 8px; right: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
+      body.steampunk .container > :first-child::before { bottom: 8px; left: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
+      body.steampunk .container > :first-child::after { bottom: 8px; right: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
 
 
       h2 {
-        font-size: 2em;
-        margin-top: 30px;
-        margin-bottom: 20px;
+        font-size: 1.8em; /* Slightly smaller h2 */
+        margin-top: 25px; /* Adjusted margin */
+        margin-bottom: 15px; /* Adjusted margin */
       }
        body.steampunk h2::after { margin: 5px auto 0; } /* Adjust line margin */
 
@@ -1528,13 +1533,18 @@
       }
       .controls .form-group {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 15px; /* Reduced margin */
       }
       input[type="text"], input[type="number"], select, button {
         width: 100%;
         margin-right: 0;
-        margin-bottom: 15px;
+        margin-bottom: 10px; /* Reduced margin */
+        padding: 12px; /* Slightly smaller padding */
+        font-size: 1em; /* Slightly smaller font size */
       }
+       button {
+           padding: 12px 15px; /* Adjusted button padding */
+       }
       .game-item, .history-item {
         flex-direction: column;
         align-items: flex-start;
@@ -1545,24 +1555,35 @@
         top: 0;
         left: 0;
         bottom: 0;
-        width: 6px;
+        width: 5px; /* Slightly thinner accent bar */
       }
 
       .game-item span, .history-item .game-info { /* Adjusted for new game-info flex container */
         margin-right: 0;
-        margin-bottom: 10px;
+        margin-bottom: 8px; /* Reduced margin */
         width: 100%; /* Ensure game-info takes full width */
+        font-size: 1.2em; /* Adjusted font size */
       }
+       .history-item .game-name {
+           font-size: 1.1em; /* Adjusted history game name font size */
+       }
        .history-item .play-date {
-           margin-left: 0;
-           margin-top: 5px;
+           font-size: 0.9em; /* Adjusted history date font size */
+           margin-top: 3px; /* Adjusted space */
            display: block;
        }
       .game-item .button-group,
       .history-item .button-group {
         width: 100%;
         justify-content: flex-start;
+        gap: 5px; /* Reduced gap */
       }
+       .game-item .button-group button,
+       .history-item .button-group button {
+           padding: 8px 12px; /* Adjusted button padding */
+           font-size: 0.9em; /* Adjusted button font size */
+       }
+
 
       /* Responsive table adjustments */
       .all-games-box table,
@@ -1582,8 +1603,8 @@
 
       .all-games-box tr {
           border: 1px solid #795548;
-          margin-bottom: 15px;
-          border-radius: 8px;
+          margin-bottom: 10px; /* Reduced margin */
+          border-radius: 6px; /* Slightly smaller radius */
           background-color: #6d4c41;
       }
 
@@ -1602,8 +1623,11 @@
           border: none;
           border-bottom: 1px solid #795548;
           position: relative;
-          padding-left: 50%;
+          padding-left: 45%; /* Adjusted padding to make space for labels */
           text-align: right;
+          font-size: 1em; /* Adjusted font size */
+          padding-top: 10px; /* Adjusted padding */
+          padding-bottom: 10px; /* Adjusted padding */
       }
 
        body.cyberpunk .all-games-box td {
@@ -1619,7 +1643,20 @@
           border-bottom: none;
       }
 
-      /* Adjust responsive column widths */
+      /* Adjust responsive column widths and labels */
+      .all-games-box td::before {
+          position: absolute;
+          top: 50%;
+          left: 10px; /* Adjusted left position */
+          width: 35%; /* Adjusted width for label */
+          padding-right: 10px; /* Added padding */
+          white-space: nowrap;
+          transform: translateY(-50%);
+          font-weight: 700;
+          text-align: left; /* Align label text left */
+          font-size: 0.9em; /* Adjusted label font size */
+      }
+
       .all-games-box td:nth-child(1)::before { content: "No."; }
       .all-games-box td:nth-child(2)::before { content: "Game Name"; }
       .all-games-box td:nth-child(3)::before { content: "Importance"; }
@@ -1627,9 +1664,9 @@
        body.steampunk .all-games-box td:nth-child(5)::before { content: "My Score"; color: #ffb300; } /* Responsive label for My Score */
        body.cyberpunk .all-games-box td:nth-child(5)::before { content: "My Score"; color: #00ffff; } /* Responsive label for My Score */
        body.fantasy .all-games-box td:nth-child(5)::before { content: "My Score"; color: #483d8b; } /* Responsive label for My Score */
-       body.steampunk .all-games-box td:nth-child(6)::before { content: "Edit/Delete"; color: #ffb300; } /* Responsive label for Edit/Remove */
-       body.cyberpunk .all-games-box td:nth-child(6)::before { content: "Edit/Delete"; color: #00ffff; } /* Responsive label for Edit/Remove */
-       body.fantasy .all-games-box td:nth-child(6)::before { content: "Edit/Delete"; color: #483d8b; } /* Responsive label for Edit/Remove */
+       body.steampunk .all-games-box td:nth-child(6)::before { content: "Actions"; color: #ffb300; } /* Responsive label for Edit/Remove */
+       body.cyberpunk .all-games-box td:nth-child(6)::before { content: "Actions"; color: #00ffff; } /* Responsive label for Edit/Remove */
+       body.fantasy .all-games-box td:nth-child(6)::before { content: "Actions"; color: #483d8b; } /* Responsive label for Edit/Remove */
 
 
       .all-games-box td:nth-child(1),
@@ -1641,22 +1678,89 @@
           width: auto;
       }
 
+      /* Styling for inline edit inputs/selects on mobile */
+      .all-games-box td input[type="text"],
+      .all-games-box td input[type="number"],
+      .all-games-box td select {
+          width: 100%; /* Make inputs/selects take full width */
+          padding: 5px; /* Smaller padding */
+          font-size: 1em; /* Adjusted font size */
+          margin-bottom: 5px; /* Add a small margin below inputs */
+      }
+
+      /* Styling for edit/remove button group in table cells on mobile */
+      .all-games-box td .button-group {
+          justify-content: flex-end; /* Align buttons to the right */
+          margin-top: 5px; /* Add some space above buttons */
+      }
+       .all-games-box td .button-group button {
+           padding: 5px 8px; /* Smaller padding for table buttons */
+           font-size: 0.7em; /* Smaller font size for table buttons */
+           margin-right: 0; /* Remove default margin-right */
+       }
+
+
       /* Responsive adjustments for manual history add */
       .manual-history-add .form-group {
           flex-direction: column;
           align-items: flex-start;
-          gap: 10px;
+          gap: 8px; /* Reduced gap */
       }
 
       .manual-history-add .form-group label {
           width: 100%;
+          font-size: 1em; /* Adjusted font size */
       }
 
       .manual-history-add .form-group select,
       .manual-history-add .form-group button {
           width: 100%;
           margin-left: 0;
+          padding: 10px; /* Adjusted padding */
+          font-size: 1em; /* Adjusted font size */
       }
+
+      /* Adjust theme switcher position on mobile */
+      .theme-switcher {
+          top: 10px;
+          right: 10px;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 5px;
+      }
+       .theme-switcher label,
+       .theme-switcher select {
+           font-size: 0.9em;
+           padding: 5px 8px;
+       }
+
+       /* Adjust modal content size on mobile */
+       .modal-content {
+           padding: 20px;
+           width: 95%;
+       }
+        .modal-content h3 {
+            font-size: 1.2em;
+        }
+        .modal-content p {
+            font-size: 0.9em;
+        }
+        .modal-buttons button {
+            padding: 8px 15px;
+            font-size: 0.8em;
+        }
+
+        /* Adjust explanation section on mobile */
+        #explanation {
+            padding: 15px;
+        }
+         #explanation h3 {
+             font-size: 1.3em;
+         }
+         #explanation p,
+         #explanation li {
+             font-size: 0.9em;
+         }
     }
   </style>
 </head>
