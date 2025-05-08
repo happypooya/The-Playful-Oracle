@@ -1,4 +1,4 @@
-How The Playful Oracle Works
+How The Board Game Oracle Works
 This app helps you choose a board game from your collection based on your preferences and play history. Here's how:
 
 Game Library: Add all your board games to the library below. You can include their name, importance (priority), duration, and your personal score.
@@ -8,4 +8,5 @@ Chronicle of Plays: When you play a suggested game (or manually record one), it'
 Manual Recording: You can manually add a game to your Chronicle if you played it outside of the suggestions.
 Editing & Deleting: You can edit or remove games directly from the Game Library table.
 Undo: The "Undo Last Play" button lets you quickly remove the most recent entry from your Chronicle if you made a mistake.
+Themes: Choose from Steampunk, Cyberpunk, or Fantasy themes to customize the app's look and feel.
 The goal is to help you explore your entire game collection and rediscover forgotten favorites!
