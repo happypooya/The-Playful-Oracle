@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Playful Oracle</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Roboto+Slab:wght@400;700&family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=MedievalSharp&family=Fondamento&family=Rajdhani:wght@400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Roboto+Slab:wght@400;700&family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=MedievalSharp&family=Fondamento&family=Rajdhani:wght@4400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Base Styles (apply to all themes) */
     body {
@@ -1508,7 +1508,19 @@
       body.steampunk h1 {
           font-size: 1.8em; /* Further reduced font size for Steampunk h1 on mobile */
           margin-bottom: 10px; /* Reduced bottom margin for Steampunk h1 */
+          display: flex; /* Use flexbox to control span layout */
+          flex-direction: column; /* Stack spans vertically */
+          align-items: center; /* Center words horizontally */
+          line-height: 1.2; /* Adjust line height for stacked words */
       }
+       body.steampunk h1 span {
+           display: block; /* Ensure each span is on its own line */
+           margin-bottom: 5px; /* Add space between lines */
+       }
+       body.steampunk h1 span:last-child {
+           margin-bottom: 0; /* No bottom margin for the last word */
+       }
+
       body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.5em; } /* Smaller gears */
       body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.5em; } /* Smaller gears */
 
@@ -1523,7 +1535,7 @@
       }
 
       body.steampunk .container {
-          padding-top: 50px; /* Increased top padding for Steampunk container on mobile */
+          padding-top: 60px; /* Increased top padding for Steampunk container on mobile */
       }
       body.steampunk .container::before { top: 8px; left: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
       body.steampunk .container::after { top: 8px; right: 8px; width: 20px; height: 20px; } /* Smaller corner gears */
@@ -1785,7 +1797,11 @@
               <option value="fantasy">Fantasy</option>
           </select>
       </div>
-    <h1>The Playful Oracle</h1>
+    <h1>
+        <span class="title-line">The</span>
+        <span class="title-line">Playful</span>
+        <span class="title-line">Oracle</span>
+    </h1>
     <p class="subtitle">Your Next Game Awaits</p>
 
     <div class="controls">
