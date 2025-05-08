@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Playful Oracle</title>
+  <title>Board Game Oracle</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Roboto+Slab:wght@400;700&family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=MedievalSharp&family=Fondamento&family=Rajdhani:wght@400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Base Styles (apply to all themes) */
@@ -445,7 +445,7 @@
       background: #1a1a1a;
       color: #e0e0e0;
       background-image:
-        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhelaWdodD0iMTAwJSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGUPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHN0aXRjaFRpbGluZz0ic3RpdGNoQ29sb3JzIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM5MTc0NjUiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9IjAuMiIvPgogIDxyZWN0IHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIiBmaWxsPSIjNDU1QTZCIiBmaWx0ZXJwYXJhbXMgPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0ibzAuMTNSIi8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkIzMDAiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjA3Ii8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM3OTU1NDgiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjEwIi8+Cjwvc3ZnPg=='),
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhelaWdodD0iMTAwJSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGUPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHN0aXRjaFRpbGluZz0ic3RpdGNoQ29sb3JzIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM5MTc0NjUiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9IjAuMiIvPgogIDxyZWN0IHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIiBmaWxsPSIjNDU1QTZCIiBmaWx0ZXJwYXJhbXMgPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0ibzAuMTNSIi8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkIzMDAiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjA3Ii8+CiAgPHJlY2Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM3OTU1NDgiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjEwIi8+Cjwvc3ZnPg=='),
         linear-gradient(to bottom, #3a241d 0%, #1a1a1a 80%);
       background-blend-mode: overlay, multiply;
       background-size: cover;
@@ -492,6 +492,8 @@
         0 0 10px rgba(255, 193, 7, 0.4),
         3px 3px 15px rgba(0,0,0,0.8);
     }
+
+    /* Removed specific Steampunk desktop rule for .title-the */
 
     body.steampunk h1::before, body.steampunk h1::after {
         content: '⚙️'; /* Gear icon */
@@ -987,7 +989,7 @@
         background: linear-gradient(to bottom, #cc0000 0%, #ff3333 100%);
         color: #0a0a0a;
          /* Adjusted box-shadow */
-        box-shadow: 0 3px 10px rgba(255, 51, 51, 0.7), 0 0 15px rgba(255, 51, 51, 0.9);
+        box-shadow: 3px 3px 10px rgba(255, 51, 51, 0.7), 0 0 15px rgba(255, 51, 51, 0.9);
         text-shadow: 0 0 8px rgba(255, 51, 51, 0.7);
     }
 
@@ -1002,7 +1004,7 @@
         background: linear-gradient(to bottom, #0099cc 0%, #00ccff 100%);
         color: #0a0a0a;
          /* Adjusted box-shadow */
-        box-shadow: 0 3px 10px rgba(0, 204, 255, 0.7), 0 0 15px rgba(0, 204, 255, 0.9);
+        box-shadow: 3px 3px 10px rgba(0, 204, 255, 0.7), 0 0 15px rgba(0, 204, 255, 0.9);
         text-shadow: 0 0 8px rgba(0, 204, 255, 0.7);
     }
 
@@ -1508,10 +1510,11 @@
       body.steampunk h1 {
           font-size: 2.2em; /* Increased font size for Steampunk h1 on mobile */
           margin-bottom: 20px; /* Added bottom margin for space */
-          display: flex; /* Use flexbox to control span layout */
-          flex-direction: column; /* Stack spans vertically */
-          align-items: center; /* Center words horizontally */
-          line-height: 1.2; /* Adjust line height for stacked words */
+          /* Reverted flex properties here to allow standard text flow */
+          display: block;
+          flex-direction: initial;
+          align-items: initial;
+          line-height: 1.2;
       }
        body.steampunk h1 span {
            display: block; /* Ensure each span is on its own line */
@@ -1520,6 +1523,14 @@
        body.steampunk h1 span:last-child {
            margin-bottom: 0; /* No bottom margin for the last word */
        }
+
+        /* Steampunk Mobile Title Fix: Add letter-spacing to the first letter of the first word */
+        body.steampunk h1::first-letter { /* Adjusted selector */
+            letter-spacing: 1px; /* Adjust value as needed to break ligature */
+            /* Add a small margin-right to the first letter */
+            margin-right: 1px; /* Adjust value as needed */
+        }
+
 
       body.steampunk h1::before { left: 5px; top: 50%; transform: translateY(-50%); font-size: 0.5em; } /* Smaller gears */
       body.steampunk h1::after { right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.5em; } /* Smaller gears */
@@ -1785,6 +1796,15 @@
              font-size: 0.9em;
          }
     }
+
+    /* Steampunk Mobile Title Fix: Add letter-spacing to the first letter of the first word */
+    @media (max-width: 767px) {
+        body.steampunk h1::first-letter { /* Adjusted selector */
+            letter-spacing: 1px; /* Adjust value as needed to break ligature */
+            /* Add a small margin-right to the first letter */
+            margin-right: 1px; /* Adjust value as needed */
+        }
+    }
   </style>
 </head>
 <body class="steampunk">
@@ -1797,12 +1817,8 @@
               <option value="fantasy">Fantasy</option>
           </select>
       </div>
-    <h1>
-        <span class="title-line">The</span>
-        <span class="title-line">Playful</span>
-        <span class="title-line">Oracle</span>
-    </h1>
-    <p class="subtitle">Your Next Game Awaits</p>
+    <h1>Board Game Oracle</h1>
+    <p class="subtitle">Your Next Play Awaits</p>
 
     <div class="controls">
       <div class="form-group">
@@ -1818,7 +1834,7 @@
        <button id="explainAppBtn">How it Works</button> </div>
 
     <div id="explanation">
-        <h3>How The Playful Oracle Works</h3>
+        <h3>How The Board Game Oracle Works</h3>
         <p>This app helps you choose a board game from your collection based on your preferences and play history. Here's how:</p>
         <ul>
             <li><strong>Game Library:</strong> Add all your board games to the library below. You can include their name, importance (priority), duration, and your personal score.</li>
@@ -2726,6 +2742,7 @@
     displayAllGames();
     populateManualHistoryDropdown(); // Populate the dropdown on load
     // Removed initial call to suggestGames() on load
+
   </script>
 </body>
 </html>
