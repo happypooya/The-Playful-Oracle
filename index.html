@@ -158,7 +158,30 @@
         font-size: 1em; /* Slightly increased font size for history date */
         margin-top: 5px; /* Add some space between name and date */
         /* No margin-left needed with flex-direction: column */
+        cursor: pointer; /* Indicate that the date is clickable/editable */
+        text-decoration: underline; /* Underline to indicate editability */
     }
+     /* Style for date input during editing */
+    .history-item .edit-date-input {
+        font-size: 1em;
+        padding: 5px;
+        margin-top: 3px;
+        box-sizing: border-box;
+        width: auto; /* Allow width to adjust */
+        display: inline-block; /* Ensure it sits inline */
+        vertical-align: middle; /* Align with other elements */
+    }
+     .history-item .edit-date-buttons {
+         display: inline-flex; /* Display buttons inline */
+         gap: 5px;
+         margin-left: 10px;
+         vertical-align: middle; /* Align with input */
+     }
+      .history-item .edit-date-buttons button {
+          padding: 5px 8px; /* Smaller padding for edit buttons */
+          font-size: 0.8em; /* Smaller font size */
+          margin-right: 0; /* Remove default margin */
+      }
 
 
     .game-item .button-group,
@@ -445,7 +468,7 @@
       background: #1a1a1a;
       color: #e0e0e0;
       background-image:
-        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGUPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHN0aXRjaFRpbGluZz0ic3RpdGNoQ29sb3JzIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM5MTc0NjUiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIGopYWNpdHk9IjAuMiIvPgogIDxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjNDU1QTZCIiBmaWx0ZXJwYXJhbXMgPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0ibzAuMTNSIi8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkIzMDAiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjA3Ii8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM3OTU1NDgiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjEwIi8+Cjwvc3ZnPg=='),
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhelaWdodD0iMTAwJSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGUPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHN0aXRjaFRpbGluZz0ic3RpdGNoQ29sb3JzIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM5MTc0NjUiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9IjAuMiIvPgogIDxyZWN0IHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIiBmaWxsPSIjNDU1QTZCIiBmaWx0ZXJwYXJhbXMgPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0ibzAuMTNSIi8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkIzMDAiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjA3Ii8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM3OTU1NDgiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjEwIi8+Cjwvc3ZnPg=='),
         linear-gradient(to bottom, #3a241d 0%, #1a1a1a 80%);
       background-blend-mode: overlay, multiply;
       background-size: cover;
@@ -1947,88 +1970,91 @@
         return `${year}-${month}-${day} - ${dayOfWeek}`;
     }
 
-    // Function to save the current state of allGames to local storage
-    function saveAllGames() {
-      localStorage.setItem("allGames", JSON.stringify(allGames));
+    // Helper function to format a date string into YYYY-MM-DD for input[type="date"]
+    function formatDateForInput(dateString) {
+        const datePart = dateString.split(' ')[0]; // Get only the YYYY-MM-DD part
+        try {
+            const [year, month, day] = datePart.split('-');
+             // Basic validation to ensure it looks like a date string before creating a Date object
+            if (year && month && day && !isNaN(year) && !isNaN(month) && !isNaN(day)) {
+                 const date = new Date(datePart);
+                 if (!isNaN(date.getTime())) { // Check if the date is valid
+                     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                 }
+            }
+             // If parsing fails or is invalid, return an empty string or handle as needed
+             console.warn("Could not format date for input:", dateString);
+             return ''; // Return empty string for invalid dates
+        } catch (e) {
+             console.error("Error formatting date for input:", dateString, e);
+             return '';
+        }
     }
 
-    // Function to save the current state of playedGamesHistory to local storage
-    function savePlayedGamesHistory() {
-      localStorage.setItem("playedGamesHistory", JSON.stringify(playedGamesHistory));
-    }
-
-    // Load all games from local storage with defensive check
-    let allGames = JSON.parse(localStorage.getItem("allGames"));
-
-    // Defensive check: If loaded data is not an array or is null, use initial data
-    if (!Array.isArray(allGames)) {
-        console.warn("localStorage 'allGames' data is corrupted or missing, using initial data.");
-        allGames = [
-          { id: generateUniqueId(), name: "Merchants of the Dark Road", priority: 2, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Pioneer Days", priority: 1, length: "medium", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Merchants Cove", priority: 2, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "51st State", priority: 2, length: "medium", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Imperium Horizon", priority: 2, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Marvel Zombies", priority: 3, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Paris: New Eden", priority: 1, length: "short", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Star Wars: The Clone Wars", priority: 2, length: "short", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Hadara", priority: 1, length: "short", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Circadians: Chaos Order", priority: 1, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Empires of the North", priority: 2, length: "medium", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Praga Caput Regni", priority: 1, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Rome and Roll", priority: 1, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Expeditions", priority: 2, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Endless Winter", priority: 2, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Tapestry", priority: 3, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Minos", priority: 2, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Coimbra", priority: 1, length: "medium", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Darwin's Journey", priority: 2, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Reavers of Midgard", priority: 1, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Circadians: First Light", priority: 1, length: "medium", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Marvel United", priority: 3, length: "short", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Wild Tiled West", priority: 1, length: "medium", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Fliptown", priority: 1, length: "short", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Assassin's Creed", priority: 3, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Star Wars: Imperial Assault", priority: 4, length: "long", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "For Northwood", priority: 1, length: "short", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Creature Caravan", priority: 1, length: "medium", isExcluded: false, myScore: null },
-          { id: generateUniqueId(), name: "Mass Effect", priority: 2, length: "long", isExcluded: false, myScore: null },
-          // Added initial excluded games with the new structure
-          { id: generateUniqueId(), name: "Massive Darkness 2", priority: 3, length: "long", isExcluded: true, myScore: null },
-          { id: generateUniqueId(), name: "Star Wars Mandalorian", priority: 3, length: "medium", isExcluded: true, myScore: null },
-          { id: generateUniqueId(), name: "The Legacy of Yu", priority: 2, length: "short", isExcluded: true, myScore: null }
-        ];
-        saveAllGames(); // Save the default data if local storage was bad
-    } else {
-         // Further optional check: Filter out items that are not objects or are missing essential properties
-         allGames = allGames.filter(item => item && typeof item === 'object' && item.id && item.name !== undefined);
-         // Decide if you want to auto-save if filtering removed items:
-         // if (allGames.length < JSON.parse(localStorage.getItem("allGames")).length) {
-         //     saveAllGames();
-         // }
+     // Helper function to format a YYYY-MM-DD date string back to YYYY-MM-DD - DayOfWeek
+    function formatInputDateForDisplay(dateString) {
+        try {
+            const [year, month, day] = dateString.split('-');
+            if (year && month && day && !isNaN(year) && !isNaN(month) && !isNaN(day)) {
+                 const date = new Date(dateString);
+                 if (!isNaN(date.getTime())) { // Check if the date is valid
+                     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                     const dayOfWeek = days[date.getDay()];
+                     return `${dateString} - ${dayOfWeek}`;
+                 }
+            }
+             console.warn("Could not format input date for display:", dateString);
+             return dateString; // Return original string if formatting fails
+        } catch (e) {
+             console.error("Error formatting input date for display:", dateString, e);
+             return dateString;
+        }
     }
 
 
-    // Load played games from local storage with defensive check
-    let playedGamesHistory = JSON.parse(localStorage.getItem("playedGamesHistory"));
+    // Load all games from local storage, default to initial list if none found
+    let allGames = JSON.parse(localStorage.getItem("allGames")) || [
+      { id: generateUniqueId(), name: "Merchants of the Dark Road", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Pioneer Days", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Merchants Cove", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "51st State", priority: 2, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Imperium Horizon", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Marvel Zombies", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Paris: New Eden", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Star Wars: The Clone Wars", priority: 2, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Hadara", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Circadians: Chaos Order", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Empires of the North", priority: 2, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Praga Caput Regni", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Rome and Roll", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Expeditions", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Endless Winter", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Tapestry", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Minos", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Coimbra", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Darwin's Journey", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Reavers of Midgard", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Circadians: First Light", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Marvel United", priority: 3, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Wild Tiled West", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Fliptown", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Assassin's Creed", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Star Wars: Imperial Assault", priority: 4, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "For Northwood", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Creature Caravan", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Mass Effect", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
+      // Added initial excluded games with the new structure
+      { id: generateUniqueId(), name: "Massive Darkness 2", priority: 3, length: "long", isExcluded: true, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "Star Wars Mandalorian", priority: 3, length: "medium", isExcluded: true, myScore: null }, // Added myScore
+      { id: generateUniqueId(), name: "The Legacy of Yu", priority: 2, length: "short", isExcluded: true, myScore: null } // Added myScore
+    ];
 
-    // Defensive check: If loaded data is not an array or is null, use empty array
-    if (!Array.isArray(playedGamesHistory)) {
-         console.warn("localStorage 'playedGamesHistory' data is corrupted or missing, using empty array.");
-        playedGamesHistory = [];
-        savePlayedGamesHistory(); // Save the empty array if local storage was bad
-    } else {
-        // Further optional check: Filter out items that are not objects or are missing essential properties
-        playedGamesHistory = playedGamesHistory.filter(item => item && typeof item === 'object' && item.id && item.date !== undefined);
-        // Decide if you want to auto-save if filtering removed items:
-        // if (playedGamesHistory.length < JSON.parse(localStorage.getItem("playedGamesHistory")).length) {
-        //     savePlayedGamesHistory();
-        // }
-    }
 
+    // Load played games from local storage, default to empty array if none found
+    // Played games now store objects with id and date
+    let playedGamesHistory = JSON.parse(localStorage.getItem("playedGamesHistory") || "[]");
 
     // Variable to store the index of the last game played in the playedGamesHistory array for undo functionality
-    // This variable is session-specific and does not persist across refreshes, which is intended.
     let lastPlayedIndex = null;
 
     // State for sorting
@@ -2038,6 +2064,26 @@
     // Variables for custom confirmation modal
     let currentConfirmAction = null; // Stores the function to call on confirmation
     let currentConfirmData = null; // Stores data needed for the confirmation function
+
+    // Function to save the current state of allGames to local storage
+    function saveAllGames() {
+      try {
+        localStorage.setItem("allGames", JSON.stringify(allGames));
+        console.log("Saved games to localStorage:", allGames); // Added log
+      } catch (e) {
+        console.error("Error saving games to localStorage:", e); // Added error log
+      }
+    }
+
+    // Function to save the current state of playedGamesHistory to local storage
+    function savePlayedGamesHistory() {
+      try {
+        localStorage.setItem("playedGamesHistory", JSON.stringify(playedGamesHistory));
+        console.log("Saved history to localStorage:", playedGamesHistory); // Added log
+      } catch (e) {
+        console.error("Error saving history to localStorage:", e); // Added error log
+      }
+    }
 
     // Function to display messages to the user
     function showMessage(msg, type = 'success') { // Default type to success
@@ -2190,46 +2236,144 @@
       const sortedHistory = [...playedGamesHistory].sort((a, b) => new Date(b.date.split(' ')[0]) - new Date(a.date.split(' ')[0]));
 
 
-      sortedHistory.forEach(playEntry => {
+      sortedHistory.forEach((playEntry, index) => { // Added index here
         const game = allGames.find(g => g.id === playEntry.id);
         if (game) {
             const li = document.createElement("li");
             li.className = "history-item";
-            // Store the index of this play entry in the original playedGamesHistory array for unmarking
+            // Store the index of this play entry in the original playedGamesHistory array for unmarking and editing
              const originalIndex = playedGamesHistory.findIndex(entry => entry.id === playEntry.id && entry.date === playEntry.date); // Find the exact entry
-            // Updated button text and icon
-            li.innerHTML = `<div class="game-info"><span class="game-name">${game.name}</span> <span class="play-date">${playEntry.date}</span></div> <div class="button-group">
-                <button class="unmark-played" data-index="${originalIndex}">❌ Remove</button>
-              </div>`;
+            li.dataset.index = originalIndex; // Add data attribute for index
+
+            li.innerHTML = `
+                <div class="game-info">
+                    <span class="game-name">${game.name}</span>
+                    <span class="play-date">${playEntry.date}</span>
+                </div>
+                <div class="button-group">
+                    <button class="unmark-played" data-index="${originalIndex}">❌ Remove</button>
+                </div>`;
             list.appendChild(li);
         }
       });
     }
 
+    // Function to start editing a history date inline
+    function startEditHistoryDate(index, listItem) {
+         // Prevent editing if another item is already being edited
+        if (document.querySelector('#historyList li.editing')) {
+            showMessage("Please save or cancel the current edit first.", "error");
+            return;
+        }
+
+        const playEntry = playedGamesHistory[index];
+        if (!playEntry) return;
+
+        // Store original date in case of cancel
+        listItem.dataset.originalDate = playEntry.date;
+
+        // Add editing class to the list item
+        listItem.classList.add('editing');
+
+        // Get the game-info div
+        const gameInfoDiv = listItem.querySelector('.game-info');
+        const playDateSpan = gameInfoDiv.querySelector('.play-date');
+
+        // Format the current date for the date input
+        const formattedDate = formatDateForInput(playEntry.date);
+
+
+        // Replace the date span with an input field and buttons
+        playDateSpan.innerHTML = `
+            <input type="date" class="edit-date-input" value="${formattedDate}">
+            <span class="edit-date-buttons">
+                <button class="save-date-edit">💾 Save</button>
+                <button class="cancel-date-edit">❌ Cancel</button>
+            </span>
+        `;
+
+         // Hide the remove button while editing
+         const removeButton = listItem.querySelector('.unmark-played');
+         if (removeButton) {
+             removeButton.style.display = 'none';
+         }
+    }
+
+    // Function to save the edited history date
+    function saveHistoryDate(index, listItem) {
+        const playEntry = playedGamesHistory[index];
+        if (!playEntry) return;
+
+        const dateInput = listItem.querySelector('.edit-date-input');
+        const newDateString = dateInput.value; // This will be in YYYY-MM-DD format
+
+        // Basic validation for date format (check if it's a valid date string)
+        if (!newDateString || isNaN(new Date(newDateString).getTime())) {
+            showMessage("Please enter a valid date.", "error");
+            return;
+        }
+
+        // Format the new date back to the display format (YYYY-MM-DD - DayOfWeek)
+        const newFormattedDate = formatInputDateForDisplay(newDateString);
+
+        // Update the history entry
+        playEntry.date = newFormattedDate;
+
+        savePlayedGamesHistory(); // Save changes to local storage
+        updateHistory(); // Re-render the history list
+        showMessage("Chronicle date updated.", "success");
+    }
+
+    // Function to cancel editing a history date
+    function cancelEditHistoryDate(index, listItem) {
+         const originalDate = listItem.dataset.originalDate;
+         const playEntry = playedGamesHistory[index];
+
+         if (playEntry) {
+             // Revert the date in the actual history array (though updateHistory will overwrite this)
+             playEntry.date = originalDate;
+         }
+
+         // Remove editing class
+         listItem.classList.remove('editing');
+
+         // Re-render the history list to show original data
+         updateHistory();
+         showMessage("Date edit cancelled.", "success");
+    }
+
+
     // Function to unmark a game as played based on its index in the history array
     function unmarkPlayed(index) {
-        if (index >= 0 && index < playedGamesHistory.length) {
-            const removedEntry = playedGamesHistory.splice(index, 1)[0]; // Remove the specific entry
-            savePlayedGamesHistory();
-            updateHistory();
+        showConfirmationModal(
+            "Remove Chronicle Entry",
+            "Are you sure you want to remove this entry from your chronicle? This cannot be undone.",
+            (indexToRemove) => {
+                if (indexToRemove >= 0 && indexToRemove < playedGamesHistory.length) {
+                    const removedEntry = playedGamesHistory.splice(indexToRemove, 1)[0]; // Remove the specific entry
+                    savePlayedGamesHistory();
+                    updateHistory();
 
-            // If the removed entry was the last one played, update lastPlayedIndex
-            if (lastPlayedIndex !== null && lastPlayedIndex >= index) {
-                 if (lastPlayedIndex === index) {
-                     lastPlayedIndex = null; // The last played item was removed
-                 } else {
-                     lastPlayedIndex--; // Adjust index if an earlier item was removed
-                 }
-            }
+                    // If the removed entry was the last one played, update lastPlayedIndex
+                    if (lastPlayedIndex !== null && lastPlayedIndex >= indexToRemove) {
+                         if (lastPlayedIndex === indexToRemove) {
+                             lastPlayedIndex = null; // The last played item was removed
+                         } else {
+                             lastPlayedIndex--; // Adjust index if an earlier item was removed
+                         }
+                    }
 
-            const removedGame = allGames.find(game => game.id === removedEntry.id);
-            showMessage(`"${removedGame ? removedGame.name : 'Game'}" on ${removedEntry.date} removed from Chronicle.`, "success");
-             // Clear and hide the suggestions section as the played status changed
-            document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
-            document.getElementById('suggestionsContainer').style.display = 'none';
-        } else {
-             showMessage("Error: Could not find the play entry to remove.", "error");
-        }
+                    const removedGame = allGames.find(game => game.id === removedEntry.id);
+                    showMessage(`"${removedGame ? removedGame.name : 'Game'}" on ${removedEntry.date} removed from Chronicle.`, "success");
+                     // Clear and hide the suggestions section as the played status changed
+                    document.getElementById("suggestions").innerHTML = "<h2>🧐 Suggested Games</h2>";
+                    document.getElementById('suggestionsContainer').style.display = 'none';
+                } else {
+                     showMessage("Error: Could not find the play entry to remove.", "error");
+                }
+            },
+            index // Pass the index as data to the confirmation function
+        );
     }
 
     // New function to undo the last played action
@@ -2263,6 +2407,23 @@
             option.textContent = game.name;
             selectElement.appendChild(option);
         });
+         // Add a default disabled option if the list is not empty
+         if (sortedGames.length > 0) {
+             const defaultOption = document.createElement('option');
+             defaultOption.value = '';
+             defaultOption.textContent = '-- Select a Game --';
+             defaultOption.disabled = true;
+             defaultOption.selected = true;
+             selectElement.prepend(defaultOption);
+         } else {
+             // If no games, add an option indicating that
+             const noGamesOption = document.createElement('option');
+             noGamesOption.value = '';
+             noGamesOption.textContent = 'No games available';
+             noGamesOption.disabled = true;
+             noGamesOption.selected = true;
+             selectElement.appendChild(noGamesOption);
+         }
     }
 
     // Function to manually add a game to history
@@ -2273,6 +2434,7 @@
         if (selectedGameId) {
             markAsPlayed(selectedGameId); // Use the existing markAsPlayed function
             // markAsPlayed already shows a success message
+            selectElement.value = ''; // Reset dropdown after adding
         } else {
             showMessage("Please select a game to record.", "error");
         }
@@ -2730,15 +2892,30 @@
     // Event Delegation for History List
     document.getElementById('historyList').addEventListener('click', function(event) {
       const target = event.target;
-      // We are now using the index of the history entry for unmarking
-      const index = parseInt(target.dataset.index, 10);
+      const listItem = target.closest('.history-item');
 
-      if (isNaN(index)) return;
+      if (!listItem) return; // Exit if the click wasn't inside a history item
 
-      if (target.classList.contains('unmark-played')) {
-        unmarkPlayed(index);
-      }
+       const index = parseInt(listItem.dataset.index, 10); // Get the index from the list item's data attribute
+
+       // Handle clicks on the date span to start editing
+       if (target.classList.contains('play-date') && !listItem.classList.contains('editing')) {
+           startEditHistoryDate(index, listItem);
+       }
+      // Handle Save button click during date editing
+       else if (target.classList.contains('save-date-edit')) {
+           saveHistoryDate(index, listItem);
+       }
+      // Handle Cancel button click during date editing
+       else if (target.classList.contains('cancel-date-edit')) {
+           cancelEditHistoryDate(index, listItem);
+       }
+      // Handle Remove button click (uses custom modal now)
+       else if (target.classList.contains('unmark-played')) {
+           unmarkPlayed(index); // Pass the index to unmarkPlayed
+       }
     });
+
 
     // Event listeners for custom confirmation modal buttons
     document.getElementById('confirmYesBtn').addEventListener('click', function() {
