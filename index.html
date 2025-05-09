@@ -445,7 +445,7 @@
       background: #1a1a1a;
       color: #e0e0e0;
       background-image:
-        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhelaWdodD0iMTAwJSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGUPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHN0aXRjaFRpbGluZz0ic3RpdGNoQ29sb3JzIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM5MTc0NjUiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9IjAuMiIvPgogIDxyZWN0IHdpZHRoPSIxMDAiIGhelaWdodD0iMTAwIiBmaWxsPSIjNDU1QTZCIiBmaWx0ZXJwYXJhbXMgPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0ibzAuMTNSIi8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkIzMDAiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjA3Ii8+CiAgPHJlY2Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM3OTU1NDgiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjEwIi8+Cjwvc3ZnPg=='),
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGUPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHN0aXRjaFRpbGluZz0ic3RpdGNoQ29sb3JzIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM5MTc0NjUiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIGopYWNpdHk9IjAuMiIvPgogIDxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjNDU1QTZCIiBmaWx0ZXJwYXJhbXMgPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0ibzAuMTNSIi8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkIzMDAiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjA3Ii8+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiM3OTU1NDgiIGZpbHRlcnBhcmFtcyA9InVybCgjob2lzZSkiIG9wYWNpdHk9Im8wLjEwIi8+Cjwvc3ZnPg=='),
         linear-gradient(to bottom, #3a241d 0%, #1a1a1a 80%);
       background-blend-mode: overlay, multiply;
       background-size: cover;
@@ -1947,59 +1947,6 @@
         return `${year}-${month}-${day} - ${dayOfWeek}`;
     }
 
-    // Load all games from local storage, default to initial list if none found
-    let allGames = JSON.parse(localStorage.getItem("allGames")) || [
-      { id: generateUniqueId(), name: "Merchants of the Dark Road", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Pioneer Days", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Merchants Cove", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "51st State", priority: 2, length: "medium", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Imperium Horizon", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Marvel Zombies", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Paris: New Eden", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Star Wars: The Clone Wars", priority: 2, length: "short", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Hadara", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Circadians: Chaos Order", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Empires of the North", priority: 2, length: "medium", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Praga Caput Regni", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Rome and Roll", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Expeditions", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Endless Winter", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Tapestry", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Minos", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Coimbra", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Darwin's Journey", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Reavers of Midgard", priority: 1, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Circadians: First Light", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Marvel United", priority: 3, length: "short", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Wild Tiled West", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Fliptown", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Assassin's Creed", priority: 3, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Star Wars: Imperial Assault", priority: 4, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "For Northwood", priority: 1, length: "short", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Creature Caravan", priority: 1, length: "medium", isExcluded: false, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Mass Effect", priority: 2, length: "long", isExcluded: false, myScore: null }, // Added myScore
-      // Added initial excluded games with the new structure
-      { id: generateUniqueId(), name: "Massive Darkness 2", priority: 3, length: "long", isExcluded: true, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "Star Wars Mandalorian", priority: 3, length: "medium", isExcluded: true, myScore: null }, // Added myScore
-      { id: generateUniqueId(), name: "The Legacy of Yu", priority: 2, length: "short", isExcluded: true, myScore: null } // Added myScore
-    ];
-
-
-    // Load played games from local storage, default to empty array if none found
-    // Played games now store objects with id and date
-    let playedGamesHistory = JSON.parse(localStorage.getItem("playedGamesHistory") || "[]");
-
-    // Variable to store the index of the last game played in the playedGamesHistory array for undo functionality
-    let lastPlayedIndex = null;
-
-    // State for sorting
-    let currentSortKey = 'index';
-    let currentSortDirection = 'asc'; // 'asc' or 'desc'
-
-    // Variables for custom confirmation modal
-    let currentConfirmAction = null; // Stores the function to call on confirmation
-    let currentConfirmData = null; // Stores data needed for the confirmation function
-
     // Function to save the current state of allGames to local storage
     function saveAllGames() {
       localStorage.setItem("allGames", JSON.stringify(allGames));
@@ -2009,6 +1956,88 @@
     function savePlayedGamesHistory() {
       localStorage.setItem("playedGamesHistory", JSON.stringify(playedGamesHistory));
     }
+
+    // Load all games from local storage with defensive check
+    let allGames = JSON.parse(localStorage.getItem("allGames"));
+
+    // Defensive check: If loaded data is not an array or is null, use initial data
+    if (!Array.isArray(allGames)) {
+        console.warn("localStorage 'allGames' data is corrupted or missing, using initial data.");
+        allGames = [
+          { id: generateUniqueId(), name: "Merchants of the Dark Road", priority: 2, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Pioneer Days", priority: 1, length: "medium", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Merchants Cove", priority: 2, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "51st State", priority: 2, length: "medium", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Imperium Horizon", priority: 2, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Marvel Zombies", priority: 3, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Paris: New Eden", priority: 1, length: "short", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Star Wars: The Clone Wars", priority: 2, length: "short", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Hadara", priority: 1, length: "short", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Circadians: Chaos Order", priority: 1, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Empires of the North", priority: 2, length: "medium", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Praga Caput Regni", priority: 1, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Rome and Roll", priority: 1, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Expeditions", priority: 2, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Endless Winter", priority: 2, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Tapestry", priority: 3, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Minos", priority: 2, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Coimbra", priority: 1, length: "medium", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Darwin's Journey", priority: 2, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Reavers of Midgard", priority: 1, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Circadians: First Light", priority: 1, length: "medium", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Marvel United", priority: 3, length: "short", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Wild Tiled West", priority: 1, length: "medium", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Fliptown", priority: 1, length: "short", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Assassin's Creed", priority: 3, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Star Wars: Imperial Assault", priority: 4, length: "long", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "For Northwood", priority: 1, length: "short", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Creature Caravan", priority: 1, length: "medium", isExcluded: false, myScore: null },
+          { id: generateUniqueId(), name: "Mass Effect", priority: 2, length: "long", isExcluded: false, myScore: null },
+          // Added initial excluded games with the new structure
+          { id: generateUniqueId(), name: "Massive Darkness 2", priority: 3, length: "long", isExcluded: true, myScore: null },
+          { id: generateUniqueId(), name: "Star Wars Mandalorian", priority: 3, length: "medium", isExcluded: true, myScore: null },
+          { id: generateUniqueId(), name: "The Legacy of Yu", priority: 2, length: "short", isExcluded: true, myScore: null }
+        ];
+        saveAllGames(); // Save the default data if local storage was bad
+    } else {
+         // Further optional check: Filter out items that are not objects or are missing essential properties
+         allGames = allGames.filter(item => item && typeof item === 'object' && item.id && item.name !== undefined);
+         // Decide if you want to auto-save if filtering removed items:
+         // if (allGames.length < JSON.parse(localStorage.getItem("allGames")).length) {
+         //     saveAllGames();
+         // }
+    }
+
+
+    // Load played games from local storage with defensive check
+    let playedGamesHistory = JSON.parse(localStorage.getItem("playedGamesHistory"));
+
+    // Defensive check: If loaded data is not an array or is null, use empty array
+    if (!Array.isArray(playedGamesHistory)) {
+         console.warn("localStorage 'playedGamesHistory' data is corrupted or missing, using empty array.");
+        playedGamesHistory = [];
+        savePlayedGamesHistory(); // Save the empty array if local storage was bad
+    } else {
+        // Further optional check: Filter out items that are not objects or are missing essential properties
+        playedGamesHistory = playedGamesHistory.filter(item => item && typeof item === 'object' && item.id && item.date !== undefined);
+        // Decide if you want to auto-save if filtering removed items:
+        // if (playedGamesHistory.length < JSON.parse(localStorage.getItem("playedGamesHistory")).length) {
+        //     savePlayedGamesHistory();
+        // }
+    }
+
+
+    // Variable to store the index of the last game played in the playedGamesHistory array for undo functionality
+    // This variable is session-specific and does not persist across refreshes, which is intended.
+    let lastPlayedIndex = null;
+
+    // State for sorting
+    let currentSortKey = 'index';
+    let currentSortDirection = 'asc'; // 'asc' or 'desc'
+
+    // Variables for custom confirmation modal
+    let currentConfirmAction = null; // Stores the function to call on confirmation
+    let currentConfirmData = null; // Stores data needed for the confirmation function
 
     // Function to display messages to the user
     function showMessage(msg, type = 'success') { // Default type to success
