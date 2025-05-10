@@ -809,21 +809,18 @@
     /* Cyberpunk Theme */
     body.cyberpunk {
       font-family: 'Rajdhani', sans-serif; /* More cyberpunk body font */
-      background: #0a0a0a; /* Dark, almost black background */
+      
       color: #00ffff; /* Cyan neon color */
       background-image:
-        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-        url('https://i.pinimg.com/1200x/99/77/e7/9977e7a608a8d25b4946235e6c412a07.jpg'); /* New background image */
-      background-size: 20px 20px, cover; /* Grid size, Image size */
-      background-position: center, center; /* Center grid, Center image */
-      background-repeat: repeat, no-repeat; /* Repeat grid, No repeat image */
-      background-attachment: fixed, fixed; /* Keep both fixed */
-      background-blend-mode: overlay, normal; /* Blend grid over image */
+               url('https://i.pinimg.com/1200x/99/77/e7/9977e7a608a8d25b4946235e6c412a07.jpg'); /* New background image */
+      background-size: cover;
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat;
+      background-attachment: fixed; /* Keep background fixed when scrolling */
     }
 
     body.cyberpunk .container {
-      background-color: rgba(0, 0, 0, 0.9); /* Less transparent dark */
+      background-color: rgba(0, 0, 0, 0.7); /* Less transparent dark */
       box-shadow:
         0 0 15px rgba(0, 255, 255, 0.8), /* Stronger Cyan glow */
         0 0 25px rgba(0, 255, 255, 0.6),
